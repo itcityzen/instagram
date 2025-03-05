@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:instagram2/Features/Post/data/models/PostModel.dart';
 import 'package:instagram2/Features/Register/data/models/UserModel.dart';
 
 import '../../../../Core/Firebase Services/FirebaseStorageService.dart';
@@ -41,12 +42,33 @@ class ProfileRepositoryImplementation implements ProfileRepository {
   }
 
   @override
-  Future<String?> uploadUrlImage(File imageFile, String Uid) async {
+  Future<String?> uploadUrlImage(File? imageFile, String Uid) async {
     try {
-      return await storageService.uploadFile(
-          file: imageFile, userID: Uid, folder: "ProfileImages");
+      if (imageFile == null)
+        return null;
+      else {
+        return await storageService.uploadFile(
+            file: imageFile, userID: Uid, folder: "ProfileImages");
+      }
     } catch (e) {
       throw Exception("Failed to upload ${e.toString()}");
+    }
+  }
+
+  //Profile Posts
+  @override
+  Stream<List<PostModel>> getOnlyMyPosts(String Uid) {
+    try {
+      return firestore
+          .collection('Posts')
+          .where("userID", isEqualTo: Uid)
+          .orderBy('createdAT', descending: true)
+          .snapshots()
+          .map((snapshot) => snapshot.docs
+              .map((post) => PostModel.fromFirestore(post.data()))
+              .toList());
+    } catch (e) {
+      throw Exception("Error to get Post ${e.toString()}");
     }
   }
 }

@@ -8,7 +8,7 @@ final class PostsInitial extends PostsState {}
 final class PostsLoading extends PostsState {}
 
 final class PostsLoadedSuccess extends PostsState {
-  List<PostModel> postModel;
+  PostModel? postModel;
   PostsLoadedSuccess({required this.postModel});
 }
 

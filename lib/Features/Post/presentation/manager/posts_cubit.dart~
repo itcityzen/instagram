@@ -13,10 +13,10 @@ part 'posts_state.dart';
 
 class PostsCubit extends Cubit<PostsState> {
   ProfileCubit profileCubit;
+
   PostRepository postRepository;
 
   PostsCubit(this.postRepository, this.profileCubit) : super(PostsInitial());
-
   TextEditingController descriptionController = TextEditingController();
   File? profileImage;
 

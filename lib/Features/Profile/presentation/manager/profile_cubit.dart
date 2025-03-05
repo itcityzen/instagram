@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
@@ -6,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:instagram2/Features/Profile/data/repositories/ProfileRepository.dart';
 import 'package:instagram2/Features/Register/data/models/UserModel.dart';
 import 'package:meta/meta.dart';
+
+import '../../../Post/data/models/PostModel.dart';
 
 part 'profile_state.dart';
 
@@ -17,8 +20,10 @@ class ProfileCubit extends Cubit<ProfileState> {
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController websiteController = TextEditingController();
   File? profileImage;
+  StreamSubscription<List<PostModel>>? subscription;
 
   UserModel? currentUser;
+  List<PostModel> postsModel = [];
 
   Future<void> getUserData() async {
     emit(ProfileLoading());
@@ -31,7 +36,11 @@ class ProfileCubit extends Cubit<ProfileState> {
         usernameController.text = user.username ?? '';
         phoneController.text = user.phone ?? '';
         websiteController.text = user.website ?? '';
-        emit(ProfileLoadedSuccess(user));
+
+        subscription = profileRepository.getOnlyMyPosts(UID).listen((posts) {
+          emit(ProfileLoadedSuccess(user, posts));
+          postsModel = posts;
+        });
       } else {
         emit(ProfileLoadedFailure('Error to get User'));
       }
@@ -65,7 +74,7 @@ class ProfileCubit extends Cubit<ProfileState> {
       );
       await profileRepository.updateUserData(updatedUser);
       currentUser = updatedUser;
-      emit(ProfileLoadedSuccess(updatedUser));
+      emit(ProfileLoadedSuccess(updatedUser, postsModel));
       emit(
         ProfileUpdated(),
       );

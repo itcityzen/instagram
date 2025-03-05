@@ -21,7 +21,8 @@ void main() async {
         BlocProvider(create: (context) => getIt<RegisterCubit>()),
         BlocProvider(create: (context) => getIt<LoginCubit>()),
         BlocProvider(create: (context) => getIt<ProfileCubit>()..getUserData()),
-        BlocProvider(create: (context) => getIt<PostsCubit>()),
+        BlocProvider(create: (context) => getIt<PostsCubit>()()),
+
       ],
       child: MyApp(),
     ),
