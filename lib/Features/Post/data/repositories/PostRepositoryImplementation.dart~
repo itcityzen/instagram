@@ -12,6 +12,9 @@ class PostRepositoryImplementation implements PostRepository {
   final FirebaseStorageService storageService;
   PostRepositoryImplementation(this.storageService, this.firestore);
 
+TextEditingController descriptionController = TextEditingController();
+File? postImage;
+FormState formState = GlobalKey<FormState>();
   //create new post
   @override
   Future<void> createPost(PostModel post) async {

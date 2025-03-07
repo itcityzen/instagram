@@ -8,8 +8,6 @@ import 'package:instagram2/Features/Profile/data/repositories/ProfileRepository.
 import 'package:instagram2/Features/Register/data/models/UserModel.dart';
 import 'package:meta/meta.dart';
 
-import '../../../Post/data/models/PostModel.dart';
-
 part 'profile_state.dart';
 
 class ProfileCubit extends Cubit<ProfileState> {
@@ -20,12 +18,14 @@ class ProfileCubit extends Cubit<ProfileState> {
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController websiteController = TextEditingController();
   File? profileImage;
-  StreamSubscription<List<PostModel>>? subscription;
 
   UserModel? currentUser;
-  List<PostModel> postsModel = [];
 
   Future<void> getUserData() async {
+    if (currentUser != null) {
+      emit(ProfileLoadedSuccess(currentUser!));
+      return;
+    }
     emit(ProfileLoading());
     try {
       String? UID = FirebaseAuth.instance.currentUser?.uid;
@@ -36,11 +36,7 @@ class ProfileCubit extends Cubit<ProfileState> {
         usernameController.text = user.username ?? '';
         phoneController.text = user.phone ?? '';
         websiteController.text = user.website ?? '';
-
-        subscription = profileRepository.getOnlyMyPosts(UID).listen((posts) {
-          emit(ProfileLoadedSuccess(user, posts));
-          postsModel = posts;
-        });
+        emit(ProfileLoadedSuccess(user));
       } else {
         emit(ProfileLoadedFailure('Error to get User'));
       }
@@ -54,12 +50,13 @@ class ProfileCubit extends Cubit<ProfileState> {
     emit(ProfileLoading());
 
     try {
+      // image to storage
       String? imageURL;
       if (profileImage != null) {
         imageURL = await profileRepository.uploadUrlImage(
             profileImage!, currentUser!.uid!);
       }
-
+      // User to Firestore
       UserModel updatedUser = UserModel(
         uid: currentUser!.uid,
         username: usernameController.text.trim(),
@@ -74,7 +71,7 @@ class ProfileCubit extends Cubit<ProfileState> {
       );
       await profileRepository.updateUserData(updatedUser);
       currentUser = updatedUser;
-      emit(ProfileLoadedSuccess(updatedUser, postsModel));
+      emit(ProfileLoadedSuccess(updatedUser));
       emit(
         ProfileUpdated(),
       );

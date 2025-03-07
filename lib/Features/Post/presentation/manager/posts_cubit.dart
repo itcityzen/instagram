@@ -14,22 +14,23 @@ part 'posts_state.dart';
 class PostsCubit extends Cubit<PostsState> {
   ProfileCubit profileCubit;
   PostRepository postRepository;
-
   PostsCubit(this.postRepository, this.profileCubit) : super(PostsInitial());
 
   TextEditingController descriptionController = TextEditingController();
   File? profileImage;
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   Future<void> createPost() async {
     try {
       final UserCubit = profileCubit.currentUser!;
 
+      // image to storage
       String? imageURL;
       if (profileImage != null) {
         imageURL = await postRepository.uploadUrlImage(
             profileImage!, profileCubit.currentUser!.uid!);
       }
-
+      // post to Firestore
       PostModel postModel = PostModel(
           username: UserCubit.username,
           userID: UserCubit.uid,
@@ -44,10 +45,11 @@ class PostsCubit extends Cubit<PostsState> {
           totalLikes: 0,
           totalComments: 0,
           totalPosts: 0);
+
       await postRepository.createPost(postModel);
-      emit(CreatePost());
+      emit(CreatePostSuccess());
     } catch (e) {
-      throw Exception(e.toString());
+      emit(CreatePostFailed(e.toString()));
     }
   }
 

@@ -118,9 +118,9 @@ class Profileviewbasics extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(10.0),
               child: Container(
-                alignment: Alignment.center,
-                height: 35.h,
-                width: 250.w,
+                alignment: Alignment.topCenter,
+                height: 31.5.h,
+                width: 200.w,
                 decoration: BoxDecoration(
                     color: Colors.white70,
                     borderRadius: BorderRadius.circular(5.r),
@@ -133,8 +133,8 @@ class Profileviewbasics extends StatelessWidget {
                     'Edit profile',
                     style: TextStyle(
                         color: Colors.grey.shade900,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16.sp),
+                        fontWeight: FontWeight.w900,
+                        fontSize: 14.5.sp),
                   ),
                 ),
               ),
@@ -148,9 +148,9 @@ class Profileviewbasics extends StatelessWidget {
                   indicatorColor: Colors.black,
                   labelColor: Colors.black,
                   tabs: [
-                    Icon(Icons.grid_view_rounded),
-                    Icon(Icons.video_collection),
-                    Icon(Icons.person)
+                    Icon(Icons.grid_view_rounded,size: 30,),
+                    Icon(Icons.video_collection,size: 30,),
+                    Icon(Icons.person,size: 30,)
                   ]))
         ],
       ),

@@ -9,8 +9,7 @@ final class ProfileLoading extends ProfileState {}
 
 final class ProfileLoadedSuccess extends ProfileState {
   final UserModel user;
-  final List<PostModel> posts ;
-  ProfileLoadedSuccess(this.user, this.posts);
+  ProfileLoadedSuccess(this.user);
 }
 
 final class ProfileLoadedFailure extends ProfileState {

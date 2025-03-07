@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:instagram2/Features/MainScreen/presentation/pages/ReelsScreen.dart';
 import 'package:instagram2/Features/Profile/presentation/pages/ProfileScreens.dart';
 
-import '../../../Post/presentation/pages/AddPostScreen.dart';
+import '../../../Post/presentation/pages/AddScreen.dart';
 import 'HomeScreen.dart';
 import '../../../Profile/presentation/widgets/ProfileView.dart';
 import 'SearchScreen.dart';
@@ -85,7 +85,7 @@ class _MainScreenState extends State<MainScreen> {
         children: [
           HomeScreen(),
           SearchScreen(),
-          AddPostScreen(),
+          AddScreen(),
           ReelsScreen(),
           ProfileScreens()
         ],

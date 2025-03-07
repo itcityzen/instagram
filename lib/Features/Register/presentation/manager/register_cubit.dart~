@@ -40,7 +40,6 @@ class RegisterCubit extends Cubit<RegisterState> {
 
       String? imageURL;
       if (profileImage != null) {
-
         imageURL =
             await registerRepository.uploadUrlImage(profileImage!, User.uid);
       }
