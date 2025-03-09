@@ -54,21 +54,4 @@ class ProfileRepositoryImplementation implements ProfileRepository {
       throw Exception("Failed to upload ${e.toString()}");
     }
   }
-
-  //Profile Posts
-  @override
-  Stream<List<PostModel>> getOnlyMyPosts(String Uid) {
-    try {
-      return firestore
-          .collection('Posts')
-          .where("userID", isEqualTo: Uid)
-          .orderBy('createdAT', descending: true)
-          .snapshots()
-          .map((snapshot) => snapshot.docs
-              .map((post) => PostModel.fromFirestore(post.data()))
-              .toList());
-    } catch (e) {
-      throw Exception("Error to get Post ${e.toString()}");
-    }
-  }
 }

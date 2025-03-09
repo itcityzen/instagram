@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:instagram2/Features/Post/presentation/manager/posts_cubit.dart';
 import 'package:instagram2/Features/Profile/presentation/manager/profile_cubit.dart';
 import 'package:instagram2/Features/Profile/presentation/widgets/ProfileView.dart';
 
@@ -13,7 +14,7 @@ class ProfileScreens extends StatelessWidget {
       body:
           BlocConsumer<ProfileCubit, ProfileState>(listener: (context, state) {
         if (state is ProfileLoadedSuccess) {
-          context.read<ProfileCubit>().startListeningtoPosts(state.user.uid!);
+          context.read<PostsCubit>().startListeningtoPosts(state.user.uid!);
         }
         if (state is ProfileUpdated) {
           BlocProvider.of<ProfileCubit>(context).getUserData();
