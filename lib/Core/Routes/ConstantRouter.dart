@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:go_router/go_router.dart';
+import 'package:instagram2/Features/Post/presentation/pages/AddDescriptionScreen.dart';
 import 'package:instagram2/Features/Profile/presentation/pages/editScreen.dart';
 import '../../Features/Login/presentation/pages/LoginScreen.dart';
 import '../../Features/MainScreen/presentation/pages/MainScreen.dart';
@@ -13,6 +14,7 @@ class ConstantRouter {
   static const String mainScreen = "/main";
   static const String editScreen = "/edit";
   static const String addScreen = "/addPost";
+  static const String addDescriptionScreen = "/addDesriptionPost";
 }
 
 class AppRouter {
@@ -45,6 +47,11 @@ class AppRouter {
             path: ConstantRouter.addScreen,
             builder: (context, state) {
               return AddScreen();
+            }),
+        GoRoute(
+            path: ConstantRouter.addDescriptionScreen,
+            builder: (context, state) {
+              return AddDescriptionScreen();
             }),
       ]);
 }

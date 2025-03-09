@@ -140,18 +140,6 @@ class Profileviewbasics extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(
-              width: double.infinity,
-              height: 30.h,
-              child: TabBar(
-                  unselectedLabelColor: Colors.grey,
-                  indicatorColor: Colors.black,
-                  labelColor: Colors.black,
-                  tabs: [
-                    Icon(Icons.grid_view_rounded,size: 30,),
-                    Icon(Icons.video_collection,size: 30,),
-                    Icon(Icons.person,size: 30,)
-                  ]))
         ],
       ),
     );

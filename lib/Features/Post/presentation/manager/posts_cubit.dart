@@ -6,37 +6,37 @@ import 'package:flutter/material.dart';
 import 'package:instagram2/Features/Post/data/models/PostModel.dart';
 import 'package:instagram2/Features/Post/data/repositories/PostRepository.dart';
 import 'package:instagram2/Features/Profile/presentation/manager/profile_cubit.dart';
+import 'package:instagram2/Features/Register/data/models/UserModel.dart';
 import 'package:meta/meta.dart';
 import 'package:uuid/uuid.dart';
 
 part 'posts_state.dart';
 
 class PostsCubit extends Cubit<PostsState> {
-  ProfileCubit profileCubit;
   PostRepository postRepository;
-  PostsCubit(this.postRepository, this.profileCubit) : super(PostsInitial());
+  PostsCubit(
+    this.postRepository,
+  ) : super(PostsInitial());
 
   TextEditingController descriptionController = TextEditingController();
   File? profileImage;
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  Future<void> createPost() async {
+  Future<void> createPost(UserModel currentUser) async {
     try {
-      final UserCubit = profileCubit.currentUser!;
-
       // image to storage
       String? imageURL;
       if (profileImage != null) {
         imageURL = await postRepository.uploadUrlImage(
-            profileImage!, profileCubit.currentUser!.uid!);
+            profileImage!, currentUser.uid!);
       }
       // post to Firestore
       PostModel postModel = PostModel(
-          username: UserCubit.username,
-          userID: UserCubit.uid,
+          username: currentUser.username,
+          userID: currentUser.uid,
           postID: Uuid().v1(),
           description: descriptionController.text,
-          profileUrl: UserCubit.profileUrl,
+          profileUrl: currentUser.profileUrl,
           createdAt: DateTime.now().toString(),
           imageURL: imageURL,
           likes: [],

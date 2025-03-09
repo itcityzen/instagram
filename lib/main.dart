@@ -20,6 +20,7 @@ void main() async {
       providers: [
         BlocProvider(create: (context) => getIt<RegisterCubit>()),
         BlocProvider(create: (context) => getIt<LoginCubit>()),
+        // .. then function = for piriority calling of getting data like home page and profile in loading data
         BlocProvider(create: (context) => getIt<ProfileCubit>()..getUserData()),
         BlocProvider(create: (context) => getIt<PostsCubit>()),
       ],

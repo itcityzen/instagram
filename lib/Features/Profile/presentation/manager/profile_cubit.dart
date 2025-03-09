@@ -4,9 +4,12 @@ import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:instagram2/Features/Post/presentation/manager/posts_cubit.dart';
 import 'package:instagram2/Features/Profile/data/repositories/ProfileRepository.dart';
 import 'package:instagram2/Features/Register/data/models/UserModel.dart';
 import 'package:meta/meta.dart';
+
+import '../../../Post/data/models/PostModel.dart';
 
 part 'profile_state.dart';
 
@@ -83,5 +86,21 @@ class ProfileCubit extends Cubit<ProfileState> {
   void setImage(File imageFile) {
     profileImage = imageFile;
     emit(ProfileImageUpdate(imageFile));
+  }
+
+  StreamSubscription<List<PostModel>>? postSubscription;
+
+  void startListeningtoPosts(String userID) {
+    try {
+      emit(PostLoading());
+      postSubscription =
+          profileRepository.getOnlyMyPosts(userID).listen((posts) {
+        emit(PostLoadedSuccess(posts));
+      }, onError: (error) {
+        emit(ProfileLoadedFailure(error.toString()));
+      });
+    } catch (e) {
+      emit(ProfileLoadedFailure(e.toString()));
+    }
   }
 }

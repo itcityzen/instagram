@@ -61,9 +61,11 @@ void setup() {
       () => ProfileCubit(getIt<ProfileRepository>()));
 
   // Post Repository
+  getIt.registerLazySingleton<PostRepository>(() =>
+      PostRepositoryImplementation(
+          getIt<FirebaseStorageService>(), getIt<FirebaseFirestore>()));
 
   // Post Cubit
-  getIt.registerLazySingleton<ProfileCubit>(
-          () => ProfileCubit(getIt<ProfileRepository>()));
-
+  getIt.registerLazySingleton<PostsCubit>(
+      () => PostsCubit(getIt<PostRepository>(), getIt<ProfileCubit>()));
 }

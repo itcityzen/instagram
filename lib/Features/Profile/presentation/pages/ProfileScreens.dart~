@@ -12,9 +12,6 @@ class ProfileScreens extends StatelessWidget {
     return Scaffold(
       body:
           BlocConsumer<ProfileCubit, ProfileState>(listener: (context, state) {
-        if (state is ProfileLoadedSuccess) {
-          context.read<ProfileCubit>().startListeningtoPosts(state.user.uid!);
-        }
         if (state is ProfileUpdated) {
           BlocProvider.of<ProfileCubit>(context).getUserData();
         }

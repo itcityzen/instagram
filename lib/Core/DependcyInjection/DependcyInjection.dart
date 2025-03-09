@@ -67,5 +67,5 @@ void setup() {
 
   // Post Cubit
   getIt.registerLazySingleton<PostsCubit>(
-      () => PostsCubit(getIt<PostRepository>(), getIt<ProfileCubit>()));
+      () => PostsCubit(getIt<PostRepository>()));
 }
