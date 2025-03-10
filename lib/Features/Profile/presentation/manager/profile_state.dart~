@@ -25,8 +25,12 @@ final class ProfileImageUpdate extends ProfileState {
 
   ProfileImageUpdate(this.imageFile);
 }
-
 final class PostLoading extends ProfileState {}
+
+final class PostsLoadedSuccess extends ProfileState {
+  List<PostModel> postModel;
+  PostsLoadedSuccess({required this.postModel});
+}
 
 final class PostLoadedSuccess extends ProfileState {
   final List<PostModel> posts;
@@ -38,3 +42,5 @@ final class PostLoadedFailure extends ProfileState {
 
   PostLoadedFailure(this.ErrorMessage);
 }
+
+

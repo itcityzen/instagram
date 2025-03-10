@@ -30,8 +30,7 @@ class ProfileView extends StatelessWidget {
           ),
           SliverFillRemaining(
             child: TabBarView(children: [
-              BlocBuilder<ProfileCubit, ProfileState>(
-                  builder: (context, state) {
+              BlocBuilder<PostsCubit, PostsState>(builder: (context, state) {
                 if (state is ProfileLoading) {
                   return Center(
                     child: CircularProgressIndicator(),

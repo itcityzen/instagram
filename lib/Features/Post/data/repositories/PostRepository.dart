@@ -8,6 +8,4 @@ abstract class PostRepository {
   Future<void> createPost(PostModel post);
   Future<void> deletePost(PostModel post);
   Stream<List<PostModel>> getallRandomlyPosts(String Uid);
-  Stream<List<PostModel>> getAllHomePosts();
-  Stream<List<PostModel>> getOnlyMyPosts(String Uid);
 }

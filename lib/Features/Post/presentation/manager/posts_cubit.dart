@@ -59,18 +59,5 @@ class PostsCubit extends Cubit<PostsState> {
     emit(UploadImageforPost(imageFile));
   }
 
-  StreamSubscription<List<PostModel>>? postSubscription;
 
-  void startListeningtoPosts(String userID) {
-    try {
-      emit(PostLoading());
-      postSubscription = postRepository.getOnlyMyPosts(userID).listen((posts) {
-        emit(PostLoadedSuccess(posts));
-      }, onError: (error) {
-        emit(PostLoadedFailure(error.toString()));
-      });
-    } catch (e) {
-      emit(PostLoadedFailure(e.toString()));
-    }
-  }
 }

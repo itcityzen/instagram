@@ -16,6 +16,7 @@ part 'profile_state.dart';
 class ProfileCubit extends Cubit<ProfileState> {
   ProfileRepository profileRepository;
   ProfileCubit(this.profileRepository) : super(ProfileInitial());
+
   final TextEditingController bioController = TextEditingController();
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
@@ -86,5 +87,21 @@ class ProfileCubit extends Cubit<ProfileState> {
   void setImage(File imageFile) {
     profileImage = imageFile;
     emit(ProfileImageUpdate(imageFile));
+  }
+
+  StreamSubscription<List<PostModel>>? postSubscription;
+
+  void startListeningtoPosts(String userID) {
+    try {
+      emit(PostLoading());
+      postSubscription =
+          profileRepository.getOnlyMyPosts(userID).listen((posts) {
+        emit(PostLoadedSuccess(posts));
+      }, onError: (error) {
+        emit(PostLoadedFailure(error.toString()));
+      });
+    } catch (e) {
+      emit(PostLoadedFailure(e.toString()));
+    }
   }
 }

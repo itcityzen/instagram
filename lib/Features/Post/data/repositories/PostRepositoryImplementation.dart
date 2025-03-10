@@ -57,18 +57,6 @@ class PostRepositoryImplementation implements PostRepository {
     }
   }
 
-//Home Posts
-  @override
-  Stream<List<PostModel>> getAllHomePosts() {
-    return firestore
-        .collection("Posts")
-        .orderBy('createdAT', descending: true)
-        .snapshots()
-        .map((snapshot) => snapshot.docs
-            .map((post) => PostModel.fromFirestore(post.data()))
-            .toList());
-  }
-
   //Search
   @override
   Stream<List<PostModel>> getallRandomlyPosts(String Uid) {
@@ -77,22 +65,6 @@ class PostRepositoryImplementation implements PostRepository {
           snapshot.docs
               .map((post) => PostModel.fromFirestore(post.data()))
               .where((post) => post.userID != Uid)
-              .toList());
-    } catch (e) {
-      throw Exception("Error to get Post ${e.toString()}");
-    }
-  }
-
-  //Profile Posts
-  @override
-  Stream<List<PostModel>> getOnlyMyPosts(String Uid) {
-    try {
-      return firestore
-          .collection('Posts')
-          .where("userID", isEqualTo: Uid)
-          .snapshots()
-          .map((snapshot) => snapshot.docs
-              .map((post) => PostModel.fromFirestore(post.data()))
               .toList());
     } catch (e) {
       throw Exception("Error to get Post ${e.toString()}");
