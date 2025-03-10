@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:go_router/go_router.dart';
-import 'package:instagram2/Features/Post/presentation/pages/AddDescriptionScreen.dart';
+import 'package:instagram2/Features/Post/presentation/widgets/AddDescriptionScreen.dart';
 import 'package:instagram2/Features/Profile/presentation/pages/editScreen.dart';
 import '../../Features/Login/presentation/pages/LoginScreen.dart';
 import '../../Features/MainScreen/presentation/pages/MainScreen.dart';

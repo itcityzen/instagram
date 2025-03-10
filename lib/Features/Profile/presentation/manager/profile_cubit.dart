@@ -25,10 +25,10 @@ class ProfileCubit extends Cubit<ProfileState> {
   UserModel? currentUser;
 
   Future<void> getUserData() async {
-    if (currentUser != null) {
+    /*if (currentUser != null) {
       emit(ProfileLoadedSuccess(currentUser!));
       return;
-    }
+    }*/
     emit(ProfileLoading());
     try {
       String? UID = FirebaseAuth.instance.currentUser?.uid;
@@ -87,6 +87,4 @@ class ProfileCubit extends Cubit<ProfileState> {
     profileImage = imageFile;
     emit(ProfileImageUpdate(imageFile));
   }
-
-
 }
