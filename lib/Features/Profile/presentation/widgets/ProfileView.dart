@@ -10,10 +10,21 @@ import 'package:instagram2/Features/Profile/presentation/widgets/ProfileViewBasi
 import 'package:instagram2/Features/Profile/presentation/widgets/Tabs.dart';
 import 'package:instagram2/Features/Register/data/models/UserModel.dart';
 
-class ProfileView extends StatelessWidget {
+class ProfileView extends StatefulWidget {
   final UserModel user;
 
   const ProfileView({super.key, required this.user});
+
+  @override
+  State<ProfileView> createState() => _ProfileViewState();
+}
+
+class _ProfileViewState extends State<ProfileView> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<ProfileCubit>().startListeningtoPosts(widget.user.uid!);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +34,7 @@ class ProfileView extends StatelessWidget {
           child: CustomScrollView(
         slivers: [
           SliverToBoxAdapter(
-            child: Profileviewbasics(user: user),
+            child: Profileviewbasics(user: widget.user),
           ),
           SliverToBoxAdapter(
             child: Tabs(),
@@ -36,8 +47,7 @@ class ProfileView extends StatelessWidget {
                   return Center(
                     child: CircularProgressIndicator(),
                   );
-                }
-                if (state is PostLoadedSuccess) {
+                } else if (state is PostLoadedSuccess) {
                   return GridView.builder(
                     itemCount: state.posts.length,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -45,11 +55,11 @@ class ProfileView extends StatelessWidget {
                         mainAxisSpacing: 3,
                         crossAxisSpacing: 3),
                     itemBuilder: (context, index) {
-                      PostModel posts = state.posts[index];
+                      PostModel post = state.posts[index];
                       return GestureDetector(
                         onTap: () {},
                         child: Image.network(
-                          posts.imageURL ?? "",
+                          post.imageURL ?? "",
                           fit: BoxFit.cover,
                         ),
                       );

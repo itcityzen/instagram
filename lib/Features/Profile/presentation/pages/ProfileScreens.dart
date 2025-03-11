@@ -16,11 +16,6 @@ class ProfileScreens extends StatelessWidget {
         if (state is ProfileUpdated) {
           BlocProvider.of<ProfileCubit>(context).getUserData();
         }
-        if (state is ProfileLoadedSuccess) {
-          print("Profile Loaded");
-          context.read<ProfileCubit>().startListeningtoPosts(state.user.uid!);
-          print("Post Loaded");
-        }
       }, builder: (context, state) {
         if (state is ProfileLoading) {
           return Center(child: CircularProgressIndicator());

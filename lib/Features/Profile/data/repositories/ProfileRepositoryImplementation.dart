@@ -59,12 +59,11 @@ class ProfileRepositoryImplementation implements ProfileRepository {
   @override
   Stream<List<PostModel>> getOnlyMyPosts(String Uid) {
     try {
-      return firestore
-          .collection('Posts')
-          .where("userID", isEqualTo: Uid)
-          .snapshots()
-          .map((snapshot) => snapshot.docs
-              .map((post) => PostModel.fromFirestore(post.data()))
+      return firestore.collection('Posts').snapshots().map((snapshot) =>
+          snapshot.docs
+              .map((doc) =>
+                  PostModel.fromFirestore(doc.data as Map<String, dynamic>))
+              .where((post) => post.userID == Uid)
               .toList());
     } catch (e) {
       throw Exception("Error to get Post ${e.toString()}");
