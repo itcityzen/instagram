@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:instagram2/Features/MainScreen/presentation/pages/ReelsScreen.dart';
+import 'package:instagram2/Features/Reels/presentation/pages/ReelsScreen.dart';
 import 'package:instagram2/Features/Profile/presentation/pages/ProfileScreens.dart';
 
 import '../../../Post/presentation/pages/AddScreen.dart';
 import 'HomeScreen.dart';
 import '../../../Profile/presentation/widgets/ProfileView.dart';
-import 'SearchScreen.dart';
+import '../../../Search/presentation/pages/SearchScreen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});

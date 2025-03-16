@@ -104,10 +104,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
                 },
                 child: Text(
                   'Next',
-                  style: TextStyle(
-                      fontSize: 15.sp,
-                      color: Colors.blue,
-                      fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 15.sp, color: Colors.blue,fontWeight: FontWeight.bold),
                 ),
               ),
             ),

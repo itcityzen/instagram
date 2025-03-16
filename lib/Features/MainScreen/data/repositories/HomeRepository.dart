@@ -1,5 +1,5 @@
-import '../../../Post/data/models/PostModel.dart';
+import '../../../Register/data/models/UserModel.dart';
 
 abstract class HomeRepository {
-  Stream<List<PostModel>> getAllHomePosts();
+  Future<void> updateUserData(String postID, String username, String imageUrl);
 }

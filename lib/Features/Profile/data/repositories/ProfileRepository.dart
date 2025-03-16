@@ -8,7 +8,6 @@ abstract class ProfileRepository {
   Future<UserModel> getUserData(String uid);
   Future<void> updateUserData(UserModel user);
   Future<String?> uploadUrlImage(File imageFile, String Uid);
-  Stream<List<PostModel>> getOnlyMyPosts(String Uid);
 
 
 }

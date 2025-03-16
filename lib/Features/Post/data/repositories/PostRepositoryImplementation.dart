@@ -70,4 +70,25 @@ class PostRepositoryImplementation implements PostRepository {
       throw Exception("Error to get Post ${e.toString()}");
     }
   }
+
+  //Profile Posts
+  @override
+  Stream<List<PostModel>> getOnlyMyPosts(String UserID) {
+    final postCollection =
+        firestore.collection("Posts").orderBy("createdAT", descending: true);
+    return postCollection.snapshots().map((snapshot) => snapshot.docs
+        .map((post) => PostModel.fromFirestore(post.data()))
+        .where((post) => post.userID == UserID)
+        .toList());
+  }
+
+//Home Posts
+  @override
+  Stream<List<PostModel>> getAllHomePosts() {
+    final postCollection =
+        firestore.collection("Posts").orderBy("createdAT", descending: true);
+    return postCollection.snapshots().map((snapshot) => snapshot.docs
+        .map((post) => PostModel.fromFirestore(post.data()))
+        .toList());
+  }
 }

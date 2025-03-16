@@ -4,7 +4,9 @@ import 'package:instagram2/Features/Post/presentation/widgets/AddDescriptionScre
 import 'package:instagram2/Features/Profile/presentation/pages/editScreen.dart';
 import '../../Features/Login/presentation/pages/LoginScreen.dart';
 import '../../Features/MainScreen/presentation/pages/MainScreen.dart';
+import '../../Features/Post/data/models/PostModel.dart';
 import '../../Features/Post/presentation/pages/AddScreen.dart';
+import '../../Features/Profile/presentation/pages/SinglePhotoView.dart';
 import '../../Features/Register/presentation/pages/RegisterScreen.dart';
 
 class ConstantRouter {
@@ -15,6 +17,7 @@ class ConstantRouter {
   static const String editScreen = "/edit";
   static const String addScreen = "/addPost";
   static const String addDescriptionScreen = "/addDesriptionPost";
+  static const String SinglePhotoView = "/singlePhotoView";
 }
 
 class AppRouter {
@@ -52,6 +55,12 @@ class AppRouter {
             path: ConstantRouter.addDescriptionScreen,
             builder: (context, state) {
               return AddDescriptionScreen();
+            }),
+        GoRoute(
+            path: ConstantRouter.SinglePhotoView,
+            builder: (context, state) {
+              PostModel postss = state.extra as PostModel;
+              return Singlephotoview(posts: postss);
             }),
       ]);
 }

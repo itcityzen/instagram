@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:instagram2/Features/Post/presentation/manager/posts_cubit.dart';
 import 'package:instagram2/Features/Profile/presentation/manager/profile_cubit.dart';
+
+import '../../../../Core/Routes/ConstantRouter.dart';
 
 class AddDescriptionScreen extends StatelessWidget {
   const AddDescriptionScreen({super.key});
@@ -27,41 +30,50 @@ class AddDescriptionScreen extends StatelessWidget {
         actions: [
           Padding(
             padding: const EdgeInsets.all(10.0),
-            child: GestureDetector(
-              onTap: () {
-                final currentUser = context.read<ProfileCubit>().currentUser!;
-                if (currentUser != null) {
-                  postCubit.createPost(currentUser);
-                } else {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text("Error: User not found"),
-                      backgroundColor: Colors.red,
-                    ),
-                  );
+            child: BlocBuilder<PostsCubit, PostsState>(
+              builder: (context, state) {
+                if(state is CreatePostLoading){
+                  return CircularProgressIndicator();
                 }
+                return GestureDetector(
+                  onTap: () {
+
+                    final currentUser = context
+                        .read<ProfileCubit>()
+                        .currentUser!;
+                    if (currentUser != null) {
+                      postCubit.createPost(currentUser);
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text("Error: User not found"),
+                          backgroundColor: Colors.red,
+                        ),
+                      );
+                    }
+                  },
+                  child: Text(
+                    "Share",
+                    style: TextStyle(
+                        fontSize: 15.sp,
+                        color: Colors.blue,
+                        fontWeight: FontWeight.bold),
+                  ),
+                );
               },
-              child: Text(
-                "Share",
-                style: TextStyle(
-                    fontSize: 15.sp,
-                    color: Colors.blue,
-                    fontWeight: FontWeight.bold),
-              ),
             ),
           ),
         ],
       ),
       body: BlocConsumer<PostsCubit, PostsState>(listener: (context, state) {
         if (state is CreatePostSuccess) {
-
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text("Post Created Successfully!"),
               backgroundColor: Colors.green,
             ),
           );
-          Navigator.pop(context);
+          context.push(ConstantRouter.mainScreen);
         } else if (state is CreatePostFailed) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
@@ -78,10 +90,10 @@ class AddDescriptionScreen extends StatelessWidget {
             children: [
               Padding(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5),
+                const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5),
                 child: Container(
                   decoration:
-                      BoxDecoration(color: Color.fromARGB(255, 236, 236, 224)),
+                  BoxDecoration(color: Color.fromARGB(255, 236, 236, 224)),
                   child: Row(
                     children: [
                       Container(

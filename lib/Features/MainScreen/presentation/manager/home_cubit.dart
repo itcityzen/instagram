@@ -1,7 +1,8 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:bloc/bloc.dart';
-import 'package:instagram2/Features/MainScreen/data/repositories/HomeRepository.dart';
+import 'package:instagram2/Features/Post/data/repositories/PostRepository.dart';
 import 'package:meta/meta.dart';
 
 import '../../../Post/data/models/PostModel.dart';
@@ -9,14 +10,13 @@ import '../../../Post/data/models/PostModel.dart';
 part 'home_state.dart';
 
 class HomeCubit extends Cubit<HomeState> {
-  HomeRepository homeRepository;
-  HomeCubit(this.homeRepository) : super(HomeInitial());
+  PostRepository postRepository;
+  HomeCubit(this.postRepository) : super(HomeInitial());
 
-  Future<void> getAllHomePosts() async {
-    StreamSubscription<List<PostModel>>? postSubscription;
+  void getAllHomePosts() async {
     try {
       emit(HomePostLoading());
-      postSubscription = homeRepository.getAllHomePosts().listen((posts) {
+      postRepository.getAllHomePosts().listen((posts) {
         emit(HomePostLoadedSuccess(posts));
       }, onError: (error) {
         emit(HomePostLoadedFailure(error.toString()));

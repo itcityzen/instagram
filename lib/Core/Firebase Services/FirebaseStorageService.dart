@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:uuid/uuid.dart';
 
 class FirebaseStorageService {
   final FirebaseStorage firebaseStorage;
@@ -15,13 +16,13 @@ class FirebaseStorageService {
       String extensionImage =
           file.path.contains('.') ? file.path.split('.').last : "jpg";
 
-      final String ImagePath = '$folder/$userID/$extensionImage';
+      final String ImagePath = '$folder/${Uuid().v1()}/$extensionImage';
 
       final reference = firebaseStorage.ref().child(ImagePath);
 
       UploadTask uploadTask = reference.putFile(file);
 
-      TaskSnapshot snapshot = await uploadTask;
+      var snapshot = await uploadTask;
 
       if (snapshot.state == TaskState.success) {
         return await reference.getDownloadURL();

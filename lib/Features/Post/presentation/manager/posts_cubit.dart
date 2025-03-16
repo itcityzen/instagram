@@ -24,6 +24,7 @@ class PostsCubit extends Cubit<PostsState> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   Future<void> createPost(UserModel currentUser) async {
+    emit(CreatePostLoading());
     try {
       // image to storage
       String? imageURL;
@@ -38,7 +39,7 @@ class PostsCubit extends Cubit<PostsState> {
           postID: Uuid().v1(),
           description: descriptionController.text,
           profileUrl: currentUser.profileUrl,
-          createdAt: DateTime.now().toString(),
+          createdAt: Timestamp.now(),
           imageURL: imageURL,
           likes: [],
           comments: [],
@@ -57,6 +58,23 @@ class PostsCubit extends Cubit<PostsState> {
   void setImage(File imageFile) {
     profileImage = imageFile;
     emit(UploadImageforPost(imageFile));
+  }
+
+
+  StreamSubscription<List<PostModel>>? postSubscription;
+
+  void startListeningtoPosts(String uuserID) {
+    try {
+      emit(ProfilePostLoading());
+      postSubscription =
+          postRepository.getOnlyMyPosts(uuserID).listen((posts) {
+            emit(ProfilePostLoadedSuccess(posts));
+          }, onError: (error) {
+            emit(ProfilePostLoadedFailure(error.toString()));
+          });
+    } catch (e) {
+      emit(ProfilePostLoadedFailure("Error to get Post ${e.toString()}"));
+    }
   }
 
 

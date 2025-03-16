@@ -89,20 +89,4 @@ class ProfileCubit extends Cubit<ProfileState> {
     emit(ProfileImageUpdate(imageFile));
   }
 
-
-  StreamSubscription<List<PostModel>>? postSubscription;
-
-  void startListeningtoPosts(String userID) {
-    try {
-      emit(PostLoading());
-      postSubscription =
-          profileRepository.getOnlyMyPosts(userID).listen((posts) {
-        emit(PostLoadedSuccess(posts));
-      }, onError: (error) {
-        emit(PostLoadedFailure(error.toString()));
-      });
-    } catch (e) {
-      emit(PostLoadedFailure(e.toString()));
-    }
-  }
 }

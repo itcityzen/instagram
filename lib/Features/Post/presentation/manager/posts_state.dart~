@@ -6,8 +6,6 @@ sealed class PostsState {}
 final class PostsInitial extends PostsState {}
 
 final class PostLoading extends PostsState {}
-final class CreatePostLoading extends PostsState {}
-
 
 final class CreatePostSuccess extends PostsState {}
 

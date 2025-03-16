@@ -24,7 +24,6 @@ void main() async {
         // .. then function = for piriority calling of getting data like home page and profile in loading data
         BlocProvider(create: (context) => getIt<ProfileCubit>()..getUserData()),
         BlocProvider(create: (context) => getIt<PostsCubit>()),
-        BlocProvider(create: (context) => getIt<HomeCubit>()..getAllHomePosts())
       ],
       child: MyApp(),
     ),

@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:instagram2/Features/Post/data/models/PostModel.dart';
 import 'package:instagram2/Features/Register/data/models/UserModel.dart';
 
@@ -55,18 +56,4 @@ class ProfileRepositoryImplementation implements ProfileRepository {
     }
   }
 
-  //Profile Posts
-  @override
-  Stream<List<PostModel>> getOnlyMyPosts(String Uid) {
-    try {
-      return firestore.collection('Posts').snapshots().map((snapshot) =>
-          snapshot.docs
-              .map((doc) =>
-                  PostModel.fromFirestore(doc.data as Map<String, dynamic>))
-              .where((post) => post.userID == Uid)
-              .toList());
-    } catch (e) {
-      throw Exception("Error to get Post ${e.toString()}");
-    }
-  }
 }
