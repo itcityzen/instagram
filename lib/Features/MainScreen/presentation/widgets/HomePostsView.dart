@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../Post/data/models/PostModel.dart';
 
@@ -55,12 +56,54 @@ class Homepostsview extends StatelessWidget {
               height: 10.h,
             ),
             Row(
-              children: [Icon(Icons.favorite), Icon(Icons.message_sharp)],
+              children: [
+                SizedBox(
+                  width: 14.w,
+                ),
+                Icon(
+                  Icons.favorite_outline,
+                  size: 28.w,
+                ),
+                SizedBox(
+                  width: 17.w,
+                ),
+                Icon(
+                  Icons.chat_bubble_outline,
+                  size: 25.w,
+                ),
+                SizedBox(
+                  width: 17.w,
+                ),
+                Icon(
+                  Icons.send,
+                  size: 27.w,
+                ),
+                Spacer(),
+                Icon(
+                  Icons.bookmark_border,
+                  size: 27.w,
+                )
+              ],
             ),
             SizedBox(
-              height: 10.h,
+              height: 5.h,
             ),
-            Text(posts.description ?? "no description")
+            Row(
+              children: [
+                SizedBox(width: 10.w),
+                Text(
+                  posts.username ?? "no username",
+                  style:
+                      TextStyle(fontWeight: FontWeight.w900, fontSize: 13.sp),
+                ),
+                SizedBox(width: 10.w),
+                Text(
+                  posts.description ?? "no description",
+                  style: TextStyle(fontWeight: FontWeight.w600),
+                ),
+              ],
+            ),
+            SizedBox(height: 15.h),
           ],
         )
       ],

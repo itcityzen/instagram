@@ -5,6 +5,8 @@ import 'package:get_it/get_it.dart';
 import 'package:instagram2/Features/Login/data/repositories/LoginRepository.dart';
 import 'package:instagram2/Features/Login/data/repositories/LoginRepositoryImplementation.dart';
 import 'package:instagram2/Features/Login/presentation/manager/login_cubit.dart';
+import 'package:instagram2/Features/MainScreen/data/repositories/HomeRepository.dart';
+import 'package:instagram2/Features/MainScreen/data/repositories/HomeRepositoryImplementation.dart';
 import 'package:instagram2/Features/Post/data/repositories/PostRepository.dart';
 import 'package:instagram2/Features/Post/data/repositories/PostRepositoryImplementation.dart';
 import 'package:instagram2/Features/Post/presentation/manager/posts_cubit.dart';
@@ -59,7 +61,7 @@ void setup() {
 
   // Profile Cubit
   getIt.registerLazySingleton<ProfileCubit>(
-      () => ProfileCubit(getIt<ProfileRepository>()));
+      () => ProfileCubit(getIt<ProfileRepository>(), getIt<HomeRepository>()));
 
   // Post Repository
   getIt.registerLazySingleton<PostRepository>(() =>
@@ -69,6 +71,11 @@ void setup() {
   // Post Cubit
   getIt.registerLazySingleton<PostsCubit>(
       () => PostsCubit(getIt<PostRepository>()));
+
+  // Home Repository
+  getIt.registerLazySingleton<HomeRepository>(() =>
+      HomeRepositoryImplementation(
+          getIt<FirebaseFirestore>(), getIt<FirebaseStorageService>()));
 
   // Home Cubit
   getIt.registerFactory<HomeCubit>(() => HomeCubit(getIt<PostRepository>()));

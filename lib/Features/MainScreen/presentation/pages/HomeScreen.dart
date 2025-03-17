@@ -31,7 +31,7 @@ class HomeScreen extends StatelessWidget {
                 onPressed: () {},
                 icon: Icon(
                   Icons.favorite_border,
-                  size: 35,
+                  size: 35,color:Colors.black ,
                 )),
             SizedBox(
               width: 1.w,
@@ -40,7 +40,7 @@ class HomeScreen extends StatelessWidget {
                 onPressed: () {},
                 icon: Icon(
                   Icons.send,
-                  size: 35,
+                  size: 35,color:Colors.black
                 ))
           ],
         ),

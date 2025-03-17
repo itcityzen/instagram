@@ -55,4 +55,5 @@ class ProfileRepositoryImplementation implements ProfileRepository {
       throw Exception("Failed to upload ${e.toString()}");
     }
   }
+
 }

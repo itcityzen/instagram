@@ -67,6 +67,7 @@ class AddDescriptionScreen extends StatelessWidget {
       ),
       body: BlocConsumer<PostsCubit, PostsState>(listener: (context, state) {
         if (state is CreatePostSuccess) {
+          context.read<ProfileCubit>().getUserData();
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text("Post Created Successfully!"),

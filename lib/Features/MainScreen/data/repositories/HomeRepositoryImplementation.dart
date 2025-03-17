@@ -11,13 +11,19 @@ class HomeRepositoryImplementation implements HomeRepository {
   HomeRepositoryImplementation(this.firestore, this.storageService);
 
   @override
-  Future<void> updateUserData(
-      String postID, String username, String imageUrl) async {
+  Future<void> updateUserPost(
+      String UserID, String username, String imageUrl) async {
     try {
-      await firestore
+      QuerySnapshot querySnapshot = await firestore
           .collection("Posts")
-          .doc(postID)
-          .update({"username": username, "profileUrl": imageUrl});
+          .where("UserID", isEqualTo: UserID)
+          .get();
+      for (QueryDocumentSnapshot doc in querySnapshot.docs) {
+        await doc.reference.update({
+          "username": username,
+          "profileUrl": imageUrl,
+        });
+      }
     } catch (e) {
       throw Exception("Error to update User ${e.toString()}");
     }

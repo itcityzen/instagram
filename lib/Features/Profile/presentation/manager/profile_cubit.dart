@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:instagram2/Features/MainScreen/data/repositories/HomeRepository.dart';
 import 'package:instagram2/Features/Post/presentation/manager/posts_cubit.dart';
 import 'package:instagram2/Features/Profile/data/repositories/ProfileRepository.dart';
 import 'package:instagram2/Features/Register/data/models/UserModel.dart';
@@ -15,7 +16,9 @@ part 'profile_state.dart';
 
 class ProfileCubit extends Cubit<ProfileState> {
   ProfileRepository profileRepository;
-  ProfileCubit(this.profileRepository) : super(ProfileInitial());
+  HomeRepository homeRepository;
+  ProfileCubit(this.profileRepository, this.homeRepository)
+      : super(ProfileInitial());
 
   final TextEditingController bioController = TextEditingController();
   final TextEditingController usernameController = TextEditingController();
@@ -73,8 +76,13 @@ class ProfileCubit extends Cubit<ProfileState> {
         followers: currentUser!.followers,
         following: currentUser!.following,
       );
+
       await profileRepository.updateUserData(updatedUser);
       currentUser = updatedUser;
+
+      await homeRepository.updateUserPost(
+          currentUser!.uid!, currentUser!.username!, currentUser!.profileUrl!);
+
       emit(ProfileLoadedSuccess(updatedUser));
       emit(
         ProfileUpdated(),
@@ -88,5 +96,4 @@ class ProfileCubit extends Cubit<ProfileState> {
     profileImage = imageFile;
     emit(ProfileImageUpdate(imageFile));
   }
-
 }

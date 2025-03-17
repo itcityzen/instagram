@@ -16,7 +16,6 @@ class HomeCubit extends Cubit<HomeState> {
   void getAllHomePosts() async {
     try {
       emit(HomePostLoading());
-
       postRepository.getAllHomePosts().listen((posts) {
         emit(HomePostLoadedSuccess(posts));
       }, onError: (error) {
