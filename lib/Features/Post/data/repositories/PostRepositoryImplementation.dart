@@ -91,4 +91,27 @@ class PostRepositoryImplementation implements PostRepository {
         .map((post) => PostModel.fromFirestore(post.data()))
         .toList());
   }
+
+  @override
+  Future likePost(String postID, String userID, bool isliked) async {
+    try {
+      // id post
+      DocumentReference documentReference =
+          firestore.collection("Posts").doc(postID);
+
+      if (isliked) {
+        await documentReference.update({
+          "Likes": FieldValue.arrayUnion([userID]),
+          "totalLikes": FieldValue.increment(1),
+        });
+      } else {
+        await documentReference.update({
+          "Likes": FieldValue.arrayRemove([userID]),
+          "totalLikes": FieldValue.increment(-1),
+        });
+      }
+    } catch (e) {
+      throw Exception("Error to like Post ${e.toString()}");
+    }
+  }
 }

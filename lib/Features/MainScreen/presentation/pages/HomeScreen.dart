@@ -15,7 +15,8 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(automaticallyImplyLeading: false,
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
           backgroundColor: Colors.white,
           centerTitle: false,
           title: SizedBox(
@@ -31,17 +32,15 @@ class HomeScreen extends StatelessWidget {
                 onPressed: () {},
                 icon: Icon(
                   Icons.favorite_border,
-                  size: 35,color:Colors.black ,
+                  size: 35,
+                  color: Colors.black,
                 )),
             SizedBox(
               width: 1.w,
             ),
             IconButton(
                 onPressed: () {},
-                icon: Icon(
-                  Icons.send,
-                  size: 35,color:Colors.black
-                ))
+                icon: Icon(Icons.send, size: 35, color: Colors.black))
           ],
         ),
         body: BlocProvider(

@@ -1,7 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:instagram2/Features/Post/presentation/manager/posts_cubit.dart';
 
+import '../../../../Core/DependcyInjection/DependcyInjection.dart';
 import '../../../Post/data/models/PostModel.dart';
 
 class Homepostsview extends StatelessWidget {
@@ -11,6 +15,9 @@ class Homepostsview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var currentUserID = getIt<FirebaseAuth>().currentUser!.uid;
+    var isLiked = posts.likes?.contains(currentUserID) ?? false;
+
     return Column(
       children: [
         Container(
@@ -24,9 +31,14 @@ class Homepostsview extends StatelessWidget {
               child: SizedBox(
                 width: 35.w,
                 height: 35.h,
-                child: Image.network(
-                  fit: BoxFit.contain,
-                  posts.profileUrl ?? "No Image",
+                child: InkWell(
+                  onDoubleTap: () {
+                    context.read<PostsCubit>().Tablike(posts.postID!, !isLiked);
+                  },
+                  child: Image.network(
+                    fit: BoxFit.contain,
+                    posts.profileUrl ?? "No Image",
+                  ),
                 ),
               ),
             ),
@@ -60,12 +72,24 @@ class Homepostsview extends StatelessWidget {
                 SizedBox(
                   width: 14.w,
                 ),
-                Icon(
-                  Icons.favorite_outline,
-                  size: 28.w,
+                IconButton(
+                    icon: Icon(
+                      isLiked ? Icons.favorite : Icons.favorite_outline,
+                      color: isLiked ? Colors.red : Colors.black,
+                      size: 28.w,
+                    ),
+                    onPressed: () {
+                      context
+                          .read<PostsCubit>()
+                          .Tablike(posts.postID!, !isLiked);
+                    }),
+                Text(
+                  "${posts.totalLikes ?? 0} likes",
+                  style:
+                      TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
                 ),
                 SizedBox(
-                  width: 17.w,
+                  width: 11.w,
                 ),
                 Icon(
                   Icons.chat_bubble_outline,

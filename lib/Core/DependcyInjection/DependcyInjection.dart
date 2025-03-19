@@ -25,9 +25,8 @@ final getIt = GetIt.instance;
 void setup() {
   // Register Firebase Instances
   getIt.registerLazySingleton<FirebaseAuth>(() => FirebaseAuth.instance);
-  getIt.registerLazySingleton<FirebaseFirestore>(
-      () => FirebaseFirestore.instance);
   getIt.registerLazySingleton<FirebaseStorage>(() => FirebaseStorage.instance);
+  getIt.registerLazySingleton<FirebaseFirestore>(() => FirebaseFirestore.instance);
 
   // Register Services
 

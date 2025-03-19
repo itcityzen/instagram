@@ -3,7 +3,10 @@ import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:instagram2/Core/DependcyInjection/DependcyInjection.dart';
+import 'package:instagram2/Core/Firebase%20Services/FirebaseAuthenticationService.dart';
 import 'package:instagram2/Features/Post/data/models/PostModel.dart';
 import 'package:instagram2/Features/Post/data/repositories/PostRepository.dart';
 import 'package:instagram2/Features/Profile/presentation/manager/profile_cubit.dart';
@@ -60,22 +63,23 @@ class PostsCubit extends Cubit<PostsState> {
     emit(UploadImageforPost(imageFile));
   }
 
-
   StreamSubscription<List<PostModel>>? postSubscription;
 
   void startListeningtoPosts(String uuserID) {
     try {
       emit(ProfilePostLoading());
-      postSubscription =
-          postRepository.getOnlyMyPosts(uuserID).listen((posts) {
-            emit(ProfilePostLoadedSuccess(posts));
-          }, onError: (error) {
-            emit(ProfilePostLoadedFailure(error.toString()));
-          });
+      postSubscription = postRepository.getOnlyMyPosts(uuserID).listen((posts) {
+        emit(ProfilePostLoadedSuccess(posts));
+      }, onError: (error) {
+        emit(ProfilePostLoadedFailure(error.toString()));
+      });
     } catch (e) {
       emit(ProfilePostLoadedFailure("Error to get Post ${e.toString()}"));
     }
   }
 
-
+  var currentUserID = getIt<FirebaseAuth>().currentUser!.uid;
+  void Tablike(postID, isliked) async {
+    await postRepository.likePost(postID, currentUserID, isliked);
+  }
 }

@@ -1,9 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:instagram2/Features/Post/data/models/PostModel.dart';
 import 'package:instagram2/Features/Post/presentation/manager/posts_cubit.dart';
 
+import '../../../../Core/DependcyInjection/DependcyInjection.dart';
 import '../manager/profile_cubit.dart';
 
 class Singlephotoview extends StatelessWidget {
@@ -13,6 +15,8 @@ class Singlephotoview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var currentUserID = getIt<FirebaseAuth>().currentUser!.uid;
+    var isLiked = posts.likes?.contains(currentUserID) ?? false;
     return Scaffold(
       body: SingleChildScrollView(
         child: Center(
@@ -68,14 +72,64 @@ class Singlephotoview extends StatelessWidget {
                     ),
                     Row(
                       children: [
-                        Icon(Icons.favorite),
-                        Icon(Icons.message_sharp)
+                        SizedBox(
+                          width: 14.w,
+                        ),
+                        IconButton(
+                            icon: Icon(
+                              isLiked ? Icons.favorite : Icons.favorite_outline,
+                              color: isLiked ? Colors.red : Colors.black,
+                              size: 28.w,
+                            ),
+                            onPressed: () {
+                              context
+                                  .read<PostsCubit>()
+                                  .Tablike(posts.postID!, !isLiked);
+                            }),
+                        Text(
+                          "${posts.totalLikes ?? 0} likes",
+                          style:
+                          TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(
+                          width: 17.w,
+                        ),
+                        Icon(
+                          Icons.chat_bubble_outline,
+                          size: 25.w,
+                        ),
+                        SizedBox(
+                          width: 17.w,
+                        ),
+                        Icon(
+                          Icons.send,
+                          size: 27.w,
+                        ),
+                        Spacer(),
+                        Icon(
+                          Icons.bookmark_border,
+                          size: 27.w,
+                        )
                       ],
                     ),
                     SizedBox(
-                      height: 10.h,
+                      height: 5.h,
                     ),
-                    Text(posts.description ?? "no description")
+                    Row(
+                      children: [
+                        SizedBox(width: 10.w),
+                        Text(
+                          posts.username ?? "no username",
+                          style: TextStyle(
+                              fontWeight: FontWeight.w900, fontSize: 13.sp),
+                        ),
+                        SizedBox(width: 10.w),
+                        Text(
+                          posts.description ?? "no description",
+                          style: TextStyle(fontWeight: FontWeight.w600),
+                        ),
+                      ],
+                    ),
                   ],
                 )
               ]),
