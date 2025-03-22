@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:instagram2/Features/Post/data/models/CommentModel.dart';
 import 'package:instagram2/Features/Post/data/models/PostModel.dart';
 
 import '../../../../Core/Firebase Services/FirebaseStorageService.dart';
@@ -113,5 +114,33 @@ class PostRepositoryImplementation implements PostRepository {
     } catch (e) {
       throw Exception("Error to like Post ${e.toString()}");
     }
+  }
+
+  @override
+  Future createComment(CommentModel comment) async {
+    await firestore
+        .collection("Posts")
+        .doc(comment.postId)
+        .collection("comments")
+        .doc(comment.commentId)
+        .set(comment.toFirestore());
+    DocumentReference documentReference =
+        firestore.collection("Posts").doc(comment.postId);
+    await documentReference.update({
+      "totalComments": FieldValue.increment(1),
+      "Comments": FieldValue.arrayUnion([comment.commentId])
+    });
+  }
+
+  Stream<List<CommentModel>> getComments(String postId) {
+    final commentCollection = firestore
+        .collection("Posts")
+        .doc(postId)
+        .collection("comments")
+        .orderBy("createdAt", descending: true);
+    return commentCollection.snapshots().map((querySnapshot) => querySnapshot
+        .docs
+        .map((comment) => CommentModel.fromFirestore(comment.data()))
+        .toList());
   }
 }

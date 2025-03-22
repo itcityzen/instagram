@@ -75,21 +75,15 @@ class Singlephotoview extends StatelessWidget {
                         SizedBox(
                           width: 14.w,
                         ),
-                        IconButton(
-                            icon: Icon(
-                              isLiked ? Icons.favorite : Icons.favorite_outline,
-                              color: isLiked ? Colors.red : Colors.black,
-                              size: 28.w,
-                            ),
-                            onPressed: () {
-                              context
-                                  .read<PostsCubit>()
-                                  .Tablike(posts.postID!, !isLiked);
-                            }),
+                        Icon(
+                          isLiked ? Icons.favorite : Icons.favorite_outline,
+                          color: isLiked ? Colors.red : Colors.black,
+                          size: 28.w,
+                        ),
                         Text(
                           "${posts.totalLikes ?? 0} likes",
-                          style:
-                          TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                              fontSize: 15.sp, fontWeight: FontWeight.bold),
                         ),
                         SizedBox(
                           width: 17.w,

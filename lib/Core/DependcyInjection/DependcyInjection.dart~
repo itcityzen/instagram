@@ -12,7 +12,6 @@ import 'package:instagram2/Features/Post/data/repositories/PostRepositoryImpleme
 import 'package:instagram2/Features/Post/presentation/manager/comment_cubit.dart';
 import 'package:instagram2/Features/Post/presentation/manager/posts_cubit.dart';
 import 'package:instagram2/Features/Search/data/repositories/SearchRepository.dart';
-import 'package:instagram2/Features/Search/data/repositories/SearchRepositoryImplementation.dart';
 import 'package:instagram2/Features/Search/presentation/manager/search_cubit.dart';
 
 import '../../Features/MainScreen/presentation/manager/home_cubit.dart';
@@ -88,11 +87,7 @@ void setup() {
   getIt.registerFactory<CommentCubit>(
       () => CommentCubit(getIt<PostRepository>()));
 
-  // Search Repository
-  getIt.registerLazySingleton<SearchRepository>(
-      () => SearchRepositoryImplementation(getIt<FirebaseFirestore>()));
-
-  //Search Cubit
+  //Explore Cubit
   getIt.registerFactory<SearchCubit>(
       () => SearchCubit(getIt<PostRepository>(), getIt<SearchRepository>()));
 }

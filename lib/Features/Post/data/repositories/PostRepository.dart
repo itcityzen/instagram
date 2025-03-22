@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:instagram2/Features/Post/data/models/CommentModel.dart';
 import 'package:instagram2/Features/Post/data/models/PostModel.dart';
 
 abstract class PostRepository {
@@ -10,5 +11,7 @@ abstract class PostRepository {
   Stream<List<PostModel>> getAllHomePosts();
   Stream<List<PostModel>> getOnlyMyPosts(String Uid);
   Stream<List<PostModel>> getallRandomlyPosts(String Uid);
-  Future likePost(String postID, String userID , bool isliked);
+  Future likePost(String postID, String userID, bool isliked);
+  Future createComment(CommentModel comment);
+  Stream<List<CommentModel>> getComments(String postId);
 }
