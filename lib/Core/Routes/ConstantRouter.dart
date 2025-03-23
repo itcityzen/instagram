@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:go_router/go_router.dart';
 import 'package:instagram2/Features/Post/presentation/widgets/AddDescriptionScreen.dart';
 import 'package:instagram2/Features/Profile/presentation/pages/editScreen.dart';
+import 'package:instagram2/Features/Search/presentation/pages/AnotherProfileScreen.dart';
 import '../../Features/Login/presentation/pages/LoginScreen.dart';
 import '../../Features/MainScreen/presentation/pages/MainScreen.dart';
 import '../../Features/Post/data/models/PostModel.dart';
@@ -18,12 +19,13 @@ class ConstantRouter {
   static const String addScreen = "/addPost";
   static const String addDescriptionScreen = "/addDesriptionPost";
   static const String SinglePhotoView = "/singlePhotoView";
+  static const String AnotherUserProfile = "/AnotherUserProfile";
 }
 
 class AppRouter {
   static final GoRouter router = GoRouter(
       initialLocation: FirebaseAuth.instance.currentUser != null
-          ? ConstantRouter.registerScreen
+          ? ConstantRouter.mainScreen
           : ConstantRouter.registerScreen,
       routes: [
         GoRoute(
@@ -61,6 +63,11 @@ class AppRouter {
             builder: (context, state) {
               PostModel postss = state.extra as PostModel;
               return Singlephotoview(posts: postss);
+            }),
+        GoRoute(
+            path: ConstantRouter.AnotherUserProfile,
+            builder: (context, state) {
+              return AnotherProfileScreen();
             }),
       ]);
 }

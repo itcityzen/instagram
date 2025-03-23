@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -117,27 +118,73 @@ class Profileviewbasics extends StatelessWidget {
           Center(
             child: Padding(
               padding: const EdgeInsets.all(10.0),
-              child: Container(
-                alignment: Alignment.topCenter,
-                height: 31.5.h,
-                width: 200.w,
-                decoration: BoxDecoration(
-                    color: Colors.white70,
-                    borderRadius: BorderRadius.circular(5.r),
-                    border: Border.all(color: Colors.black87, width: 2.w)),
-                child: TextButton(
-                  onPressed: () {
-                    context.push(ConstantRouter.editScreen);
-                  },
-                  child: Text(
-                    'Edit profile',
-                    style: TextStyle(
-                        color: Colors.grey.shade900,
-                        fontWeight: FontWeight.w900,
-                        fontSize: 14.5.sp),
-                  ),
-                ),
-              ),
+              child: user.uid == FirebaseAuth.instance.currentUser?.uid
+                  ? Container(
+                      alignment: Alignment.topCenter,
+                      height: 31.5.h,
+                      width: 200.w,
+                      decoration: BoxDecoration(
+                          color: Colors.white70,
+                          borderRadius: BorderRadius.circular(5.r),
+                          border:
+                              Border.all(color: Colors.black87, width: 2.w)),
+                      child: TextButton(
+                        onPressed: () {
+                          context.push(ConstantRouter.editScreen);
+                        },
+                        child: Text(
+                          'Edit profile',
+                          style: TextStyle(
+                              color: Colors.grey.shade900,
+                              fontWeight: FontWeight.w900,
+                              fontSize: 14.5.sp),
+                        ),
+                      ))
+                  : Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                      Container(
+                        alignment: Alignment.topCenter,
+                        height: 31.5.h,
+                        width: 100.w,
+                        decoration: BoxDecoration(
+                            color: Colors.white70,
+                            borderRadius: BorderRadius.circular(5.r),
+                            border:
+                                Border.all(color: Colors.black87, width: 2.w)),
+                        child: TextButton(
+                          onPressed: () {},
+                          child: Text(
+                            'Follow',
+                            style: TextStyle(
+                                color: Colors.grey.shade900,
+                                fontWeight: FontWeight.w900,
+                                fontSize: 14.5.sp),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 10.w,
+                      ),
+                      Container(
+                        alignment: Alignment.topCenter,
+                        height: 31.5.h,
+                        width: 100.w,
+                        decoration: BoxDecoration(
+                            color: Colors.white70,
+                            borderRadius: BorderRadius.circular(5.r),
+                            border:
+                                Border.all(color: Colors.black87, width: 2.w)),
+                        child: TextButton(
+                          onPressed: () {},
+                          child: Text(
+                            'Message',
+                            style: TextStyle(
+                                color: Colors.grey.shade900,
+                                fontWeight: FontWeight.w900,
+                                fontSize: 14.5.sp),
+                          ),
+                        ),
+                      )
+                    ]),
             ),
           ),
         ],

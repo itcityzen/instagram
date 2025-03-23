@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:instagram2/Core/DependcyInjection/DependcyInjection.dart';
+import 'package:instagram2/Core/Firebase%20Services/FirebaseAuthenticationService.dart';
+import 'package:instagram2/Core/Routes/ConstantRouter.dart';
 import 'package:instagram2/Features/Profile/presentation/manager/profile_cubit.dart';
 import 'package:instagram2/Features/Profile/presentation/widgets/chooseUpdatedImage.dart';
 
@@ -63,7 +66,7 @@ class EditScreen extends StatelessWidget {
               fixedSize: Size(120.w, 45.h),
               backgroundColor: Colors.black,
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8.r),
+                borderRadius: BorderRadius.circular(20.r),
               ),
             ),
             onPressed: () {
@@ -72,6 +75,26 @@ class EditScreen extends StatelessWidget {
             },
             child: Text(
               'Save',
+              style:
+                  TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+            )),
+        SizedBox(
+          height: 20.h,
+        ),
+        ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              fixedSize: Size(120.w, 45.h),
+              backgroundColor: Colors.black,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20.r),
+              ),
+            ),
+            onPressed: () {
+              getIt<FirebaseAuthenticationService>().Logout();
+              context.go(ConstantRouter.registerScreen);
+            },
+            child: Text(
+              'Logout',
               style:
                   TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
             ))

@@ -47,4 +47,20 @@ class SearchRepositoryImplementation implements SearchRepository {
       throw Exception("Error fetching users: $e");
     }
   }
+
+  @override
+  Future<UserModel> getAnotherUserProfile(String uid) async {
+    try {
+      DocumentSnapshot documentSnapshot =
+          await firestore.collection("Users").doc(uid).get();
+      if (documentSnapshot.exists && documentSnapshot.data() != null) {
+        return UserModel.fromFirestore(
+            documentSnapshot.data() as Map<String, dynamic>);
+      } else {
+        throw Exception("User not found");
+      }
+    } catch (e) {
+      throw Exception("Error to get User ${e.toString()}");
+    }
+  }
 }

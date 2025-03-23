@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:instagram2/Features/Login/presentation/manager/login_cubit.dart';
 import 'package:instagram2/Features/MainScreen/presentation/manager/home_cubit.dart';
 import 'package:instagram2/Features/Profile/presentation/manager/profile_cubit.dart';
+import 'package:instagram2/Features/Search/presentation/manager/anothe_user_cubit.dart';
+import 'package:instagram2/Features/Search/presentation/manager/search_cubit.dart';
 import 'Core/DependcyInjection/DependcyInjection.dart';
 import 'Features/Post/presentation/manager/posts_cubit.dart';
 import 'Features/Register/presentation/manager/register_cubit.dart';
@@ -24,6 +26,7 @@ void main() async {
         // .. then function = for piriority calling of getting data like home page and profile in loading data
         BlocProvider(create: (context) => getIt<ProfileCubit>()..getUserData()),
         BlocProvider(create: (context) => getIt<PostsCubit>()),
+        BlocProvider(create: (context) => getIt<AnotherUserCubit>()),
       ],
       child: MyApp(),
     ),

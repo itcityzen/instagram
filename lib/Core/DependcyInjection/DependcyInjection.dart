@@ -13,6 +13,7 @@ import 'package:instagram2/Features/Post/presentation/manager/comment_cubit.dart
 import 'package:instagram2/Features/Post/presentation/manager/posts_cubit.dart';
 import 'package:instagram2/Features/Search/data/repositories/SearchRepository.dart';
 import 'package:instagram2/Features/Search/data/repositories/SearchRepositoryImplementation.dart';
+import 'package:instagram2/Features/Search/presentation/manager/anothe_user_cubit.dart';
 import 'package:instagram2/Features/Search/presentation/manager/search_cubit.dart';
 
 import '../../Features/MainScreen/presentation/manager/home_cubit.dart';
@@ -95,4 +96,8 @@ void setup() {
   //Search Cubit
   getIt.registerFactory<SearchCubit>(
       () => SearchCubit(getIt<PostRepository>(), getIt<SearchRepository>()));
+
+  //AnotherUser Cubit
+  getIt.registerFactory<AnotherUserCubit>(
+      () => AnotherUserCubit(getIt<SearchRepository>()));
 }
