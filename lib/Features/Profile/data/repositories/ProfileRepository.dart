@@ -8,6 +8,6 @@ abstract class ProfileRepository {
   Future<UserModel> getUserData(String uid);
   Future<void> updateUserData(UserModel user);
   Future<String?> uploadUrlImage(File imageFile, String Uid);
-
-
+  Future<List<UserModel>> getFollowersAndFollowings(
+      List<String> allUsersIDs);
 }

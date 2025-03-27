@@ -38,7 +38,6 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       bottomNavigationBar: Container(
         child: BottomNavigationBar(
             type: BottomNavigationBarType.fixed,

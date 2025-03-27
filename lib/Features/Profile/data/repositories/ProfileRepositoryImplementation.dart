@@ -55,4 +55,19 @@ class ProfileRepositoryImplementation implements ProfileRepository {
       throw Exception("Failed to upload ${e.toString()}");
     }
   }
+
+//first get all users ids < then convert them into a usermodel in a list
+  @override
+  Future<List<UserModel>> getFollowersAndFollowings(
+      List<String> allUsersIDs) async {
+    QuerySnapshot querySnapshot = await firestore
+        .collection("Users")
+        .where("uid", whereIn: allUsersIDs)
+        .get();
+    List<UserModel> users = querySnapshot.docs
+        .map((querySnapshot) => UserModel.fromFirestore(
+            querySnapshot.data() as Map<String, dynamic>))
+        .toList();
+    return users;
+  }
 }

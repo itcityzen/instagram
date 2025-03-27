@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get_it/get_it.dart';
+import 'package:instagram2/Core/Theme/theme_cubit.dart';
 import 'package:instagram2/Features/Login/data/repositories/LoginRepository.dart';
 import 'package:instagram2/Features/Login/data/repositories/LoginRepositoryImplementation.dart';
 import 'package:instagram2/Features/Login/presentation/manager/login_cubit.dart';
@@ -11,6 +12,7 @@ import 'package:instagram2/Features/Post/data/repositories/PostRepository.dart';
 import 'package:instagram2/Features/Post/data/repositories/PostRepositoryImplementation.dart';
 import 'package:instagram2/Features/Post/presentation/manager/comment_cubit.dart';
 import 'package:instagram2/Features/Post/presentation/manager/posts_cubit.dart';
+import 'package:instagram2/Features/Profile/presentation/manager/follow_cubit.dart';
 import 'package:instagram2/Features/Search/data/repositories/SearchRepository.dart';
 import 'package:instagram2/Features/Search/data/repositories/SearchRepositoryImplementation.dart';
 import 'package:instagram2/Features/Search/presentation/manager/anothe_user_cubit.dart';
@@ -100,4 +102,10 @@ void setup() {
   //AnotherUser Cubit
   getIt.registerFactory<AnotherUserCubit>(
       () => AnotherUserCubit(getIt<SearchRepository>()));
+  //Theme Cubit
+  getIt.registerFactory<ThemeCubit>(() => ThemeCubit());
+
+  //Follow Cubit
+  getIt.registerFactory<FollowCubit>(
+      () => FollowCubit(getIt<ProfileRepository>()));
 }

@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:go_router/go_router.dart';
 import 'package:instagram2/Features/Post/presentation/widgets/AddDescriptionScreen.dart';
+import 'package:instagram2/Features/Profile/presentation/pages/FollowScreen.dart';
 import 'package:instagram2/Features/Profile/presentation/pages/editScreen.dart';
 import 'package:instagram2/Features/Search/presentation/pages/AnotherProfileScreen.dart';
 import '../../Features/Login/presentation/pages/LoginScreen.dart';
@@ -20,6 +21,7 @@ class ConstantRouter {
   static const String addDescriptionScreen = "/addDesriptionPost";
   static const String SinglePhotoView = "/singlePhotoView";
   static const String AnotherUserProfile = "/AnotherUserProfile";
+  static const String FollowScreen = "/FollowScreen";
 }
 
 class AppRouter {
@@ -68,6 +70,11 @@ class AppRouter {
             path: ConstantRouter.AnotherUserProfile,
             builder: (context, state) {
               return AnotherProfileScreen();
+            }),
+        GoRoute(
+            path: ConstantRouter.FollowScreen,
+            builder: (context, state) {
+              return FollowScreen();
             }),
       ]);
 }

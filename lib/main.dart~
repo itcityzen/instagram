@@ -5,7 +5,6 @@ import 'package:instagram2/Core/SharedPreferences/CachHelper.dart';
 import 'package:instagram2/Core/Theme/theme_cubit.dart';
 import 'package:instagram2/Features/Login/presentation/manager/login_cubit.dart';
 import 'package:instagram2/Features/MainScreen/presentation/manager/home_cubit.dart';
-import 'package:instagram2/Features/Profile/presentation/manager/follow_cubit.dart';
 import 'package:instagram2/Features/Profile/presentation/manager/profile_cubit.dart';
 import 'package:instagram2/Features/Search/presentation/manager/anothe_user_cubit.dart';
 import 'package:instagram2/Features/Search/presentation/manager/search_cubit.dart';
@@ -32,7 +31,6 @@ void main() async {
         BlocProvider(create: (context) => getIt<PostsCubit>()),
         BlocProvider(create: (context) => getIt<AnotherUserCubit>()),
         BlocProvider(create: (context) => getIt<ThemeCubit>()),
-        BlocProvider(create: (context) => getIt<FollowCubit>()),
       ],
       child: MyApp(),
     ),

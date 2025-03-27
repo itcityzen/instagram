@@ -49,18 +49,47 @@ class SearchRepositoryImplementation implements SearchRepository {
   }
 
   @override
-  Future<UserModel> getAnotherUserProfile(String uid) async {
-    try {
-      DocumentSnapshot documentSnapshot =
-          await firestore.collection("Users").doc(uid).get();
-      if (documentSnapshot.exists && documentSnapshot.data() != null) {
-        return UserModel.fromFirestore(
-            documentSnapshot.data() as Map<String, dynamic>);
+  // input useriD to firestore Users Collection then get data and convert into usermodel
+  Stream<UserModel> getAnotherUserProfile(String uid) {
+    return firestore.collection("Users").doc(uid).snapshots().map((snapshot) {
+      if (snapshot.exists && snapshot.data() != null) {
+        return UserModel.fromFirestore(snapshot.data() as Map<String, dynamic>);
       } else {
         throw Exception("User not found");
       }
+    });
+  }
+
+  @override
+  Future<void> followUser(String currentUserID, String anotherUserID) async {
+    try {
+      //getting documentation of current user < then get the list of it's following
+      DocumentSnapshot currentUserDoc =
+          await firestore.collection("Users").doc(currentUserID).get();
+      List<dynamic> following =
+          (currentUserDoc.data() as Map<String, dynamic>)["following"] ?? [];
+      // if the following list don't contain the anotherUserID add < if it's contain remove when pressed
+      if (!following.contains(anotherUserID)) {
+        await firestore.collection("Users").doc(currentUserID).update({
+          "following": FieldValue.arrayUnion([anotherUserID]),
+          "totalFollowing": FieldValue.increment(1),
+        });
+        await firestore.collection("Users").doc(anotherUserID).update({
+          "followers": FieldValue.arrayUnion([currentUserID]),
+          "totalFollowers": FieldValue.increment(1),
+        });
+      } else {
+        await firestore.collection("Users").doc(currentUserID).update({
+          "following": FieldValue.arrayRemove([anotherUserID]),
+          "totalFollowing": FieldValue.increment(-1),
+        });
+        await firestore.collection("Users").doc(anotherUserID).update({
+          "followers": FieldValue.arrayRemove([currentUserID]),
+          "totalFollowers": FieldValue.increment(-1),
+        });
+      }
     } catch (e) {
-      throw Exception("Error to get User ${e.toString()}");
+      throw Exception("Error to follow the User ${e.toString()}");
     }
   }
 }

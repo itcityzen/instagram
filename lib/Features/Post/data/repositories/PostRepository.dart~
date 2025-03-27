@@ -1,0 +1,17 @@
+import 'dart:async';
+import 'dart:io';
+
+import 'package:instagram2/Features/Post/data/models/CommentModel.dart';
+import 'package:instagram2/Features/Post/data/models/PostModel.dart';
+
+abstract class PostRepository {
+  Future<String?> uploadUrlImage(File imageFile, String Uid);
+  Future<void> createPost(PostModel post);
+  Future<void> deletePost(String PostID);
+  Stream<List<PostModel>> getAllHomePosts();
+  Stream<List<PostModel>> getOnlyMyPosts(String Uid);
+  Stream<List<PostModel>> getallRandomlyPosts(String Uid);
+  Future likePost(String postID, String userID, bool isliked);
+  Future createComment(CommentModel comment);
+  Stream<List<CommentModel>> getComments(String postId);
+}

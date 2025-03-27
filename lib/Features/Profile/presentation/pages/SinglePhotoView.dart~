@@ -42,7 +42,7 @@ class Singlephotoview extends StatelessWidget {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(100),
                           child: Image.network(
-                            fit: BoxFit.fill,
+                            fit: BoxFit.contain,
                             posts.profileUrl ?? "No Image",
                           ),
                         ),

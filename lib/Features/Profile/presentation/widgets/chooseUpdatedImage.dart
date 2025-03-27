@@ -73,12 +73,20 @@ class ChooseUpdatedImage extends StatelessWidget {
       },
       child: BlocBuilder<ProfileCubit, ProfileState>(builder: (context, state) {
         return CircleAvatar(
-          radius: 30.r,
-          backgroundImage: cubit.profileImage != null
-              ? FileImage(cubit.profileImage!)
-              : null,
+          radius: 70.r,
           child: cubit.profileImage == null
-              ? Image.network(cubit.currentUser!.profileUrl!)
+              ? Container(
+                  width: 180.w,
+                  height: 200.h,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(100),
+                    child: Image.network(
+                      cubit.currentUser!.profileUrl!,
+                      height: 200.h,
+                      width: 200.h,
+                      fit: BoxFit.fill,
+                    ),
+                  ))
               : null,
         );
       }),

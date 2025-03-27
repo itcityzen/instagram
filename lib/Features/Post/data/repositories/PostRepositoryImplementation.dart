@@ -32,21 +32,6 @@ class PostRepositoryImplementation implements PostRepository {
     }
   }
 
-//delete post
-  @override
-  Future<void> deletePost(PostModel post) async {
-    try {
-      await firestore.collection("Posts").doc(post.postID).delete();
-      DocumentReference documentReference =
-          await firestore.collection('"Users"').doc(post.userID);
-      await documentReference.update({
-        "totalPosts": FieldValue.increment(-1),
-      });
-    } catch (e) {
-      throw Exception("Error to delete Post ${e.toString()}");
-    }
-  }
-
 //create new post folder in firebase
   @override
   Future<String?> uploadUrlImage(File imageFile, String Uid) async {
@@ -142,5 +127,19 @@ class PostRepositoryImplementation implements PostRepository {
         .docs
         .map((comment) => CommentModel.fromFirestore(comment.data()))
         .toList());
+  }
+
+  @override
+  Future<void> deletePost(PostModel post) async {
+    try {
+      await firestore.collection("Posts").doc(post.postID).delete();
+      DocumentReference documentReference =
+          await firestore.collection("Users").doc(post.userID);
+      await documentReference.update({
+        "totalPosts": FieldValue.increment(-1),
+      });
+    } catch (e) {
+      throw Exception("Error to delete Post ${e.toString()}");
+    }
   }
 }

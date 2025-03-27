@@ -82,4 +82,14 @@ class PostsCubit extends Cubit<PostsState> {
   void Tablike(postID, isliked) async {
     await postRepository.likePost(postID, currentUserID, isliked);
   }
+
+  Future<void> deletePost(PostModel post) async {
+    emit(DeletePostLoading());
+    try {
+      await postRepository.deletePost(post);
+      emit(DeletePostSuccess());
+    } catch (e) {
+      emit(DeletePostFailed(e.toString()));
+    }
+  }
 }

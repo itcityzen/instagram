@@ -27,6 +27,7 @@ class Homepostsview extends StatelessWidget {
           alignment: Alignment.topLeft,
           width: 375.w,
           height: 30.h,
+          color: Colors.white,
           child: ListTile(
             leading: CircleAvatar(
               radius: 20.r,
