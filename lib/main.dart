@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,24 +18,33 @@ import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
+
   await SharedPreferencesHelper.init();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
   setup();
   runApp(
-    MultiBlocProvider(
-      providers: [
-        BlocProvider(create: (context) => getIt<RegisterCubit>()),
-        BlocProvider(create: (context) => getIt<LoginCubit>()),
-        // .. then function = for piriority calling of getting data like home page and profile in loading data
-        BlocProvider(create: (context) => getIt<ProfileCubit>()..getUserData()),
-        BlocProvider(create: (context) => getIt<PostsCubit>()),
-        BlocProvider(create: (context) => getIt<AnotherUserCubit>()),
-        BlocProvider(create: (context) => getIt<ThemeCubit>()),
-        BlocProvider(create: (context) => getIt<FollowCubit>()),
-      ],
-      child: MyApp(),
+    EasyLocalization(
+      supportedLocales: [Locale('en'), Locale('ar')],
+      path: 'assets/translation',
+      fallbackLocale: Locale('en'),
+
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider(create: (context) => getIt<RegisterCubit>()),
+          BlocProvider(create: (context) => getIt<LoginCubit>()),
+          // .. then function = for piriority calling of getting data like home page and profile in loading data
+          BlocProvider(
+              create: (context) => getIt<ProfileCubit>()..getUserData()),
+          BlocProvider(create: (context) => getIt<PostsCubit>()),
+          BlocProvider(create: (context) => getIt<AnotherUserCubit>()),
+          BlocProvider(create: (context) => getIt<ThemeCubit>()),
+          BlocProvider(create: (context) => getIt<FollowCubit>()),
+        ],
+        child: MyApp(),
+      ),
     ),
   );
 }

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,16 +21,16 @@ class FormLogin extends StatelessWidget {
                   Icons.person,
                   color: Colors.blue,
                 ),
-                hintText: 'email',
-                labelText: 'Email',
+                hintText: 'Email'.tr(),
+                labelText: 'Email'.tr(),
                 controller: cubit.EmailController),
             SizedBox(
               height: 30.h,
             ),
             CustomFormTextField(
                 prefixIcon: Icon(Icons.lock, color: Colors.blue),
-                hintText: 'password',
-                labelText: 'Password',
+                hintText: 'Password'.tr(),
+                labelText: 'Password'.tr(),
                 controller: cubit.PasswordController),
           ],
         ));

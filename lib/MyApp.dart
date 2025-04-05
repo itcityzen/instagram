@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -16,6 +17,10 @@ class MyApp extends StatelessWidget {
         builder: (context, child) {
           return BlocBuilder<ThemeCubit, ThemeState>(builder: (context, state) {
             return MaterialApp.router(
+              localizationsDelegates: context.localizationDelegates,
+              supportedLocales: context.supportedLocales,
+              locale: context.locale,
+
               theme:
                   state is ThemeisDark ? ThemeData.dark() : ThemeData.light(),
               routerConfig: AppRouter.router,
