@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,32 +18,32 @@ class Formrigister extends StatelessWidget {
           children: [
             CustomFormTextField(
                 prefixIcon: Icon(Icons.person,color: Colors.blue,),
-                hintText: 'username',
-                labelText: 'Username',
+                hintText: 'Username'.tr(),
+                labelText: 'Username'.tr(),
                 controller: cubit.UsernameController),
             SizedBox(
               height: 20.h,
             ),
             CustomFormTextField(
                 prefixIcon: Icon(Icons.email,color: Colors.blue),
-                hintText: 'email',
-                labelText: 'Email',
+                hintText: 'Email'.tr(),
+                labelText: 'Email'.tr(),
                 controller: cubit.EmailController),
             SizedBox(
               height: 20.h,
             ),
             CustomFormTextField(
               prefixIcon: Icon(Icons.lock,color: Colors.blue),
-                hintText: 'password',
-                labelText: 'Password',
+                hintText: 'Password'.tr(),
+                labelText: 'Password'.tr(),
                 controller: cubit.PasswordController),
             SizedBox(
               height: 20.h,
             ),
             CustomFormTextField(
               prefixIcon: Icon(Icons.phone,color: Colors.blue),
-                hintText: 'phone',
-                labelText: 'Phone',
+                hintText: 'Phone'.tr(),
+                labelText: 'Phone'.tr(),
                 controller: cubit.PhoneController),
           ],
         ));

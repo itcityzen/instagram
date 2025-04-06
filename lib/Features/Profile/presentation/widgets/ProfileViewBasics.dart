@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -76,7 +77,7 @@ class _ProfileviewbasicsState extends State<Profileviewbasics> {
                     children: [
                       SizedBox(width: 30.w),
                       Text(
-                        'posts',
+                        'Posts'.tr(),
                         style: TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 13.sp),
                       ),
@@ -89,7 +90,7 @@ class _ProfileviewbasicsState extends State<Profileviewbasics> {
                           context.push(ConstantRouter.FollowScreen);
                         },
                         child: Text(
-                          'followers',
+                          'Followers'.tr(),
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 13.sp),
                         ),
@@ -103,7 +104,7 @@ class _ProfileviewbasicsState extends State<Profileviewbasics> {
                           context.push(ConstantRouter.FollowScreen);
                         },
                         child: Text(
-                          'following',
+                          'Following'.tr(),
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 13.sp),
                         ),
@@ -166,7 +167,7 @@ class _ProfileviewbasicsState extends State<Profileviewbasics> {
                           context.push(ConstantRouter.editScreen);
                         },
                         child: Text(
-                          'Edit profile',
+                          'Edit Profile'.tr(),
                           style: TextStyle(
                               color: Colors.grey.shade900,
                               fontWeight: FontWeight.w900,

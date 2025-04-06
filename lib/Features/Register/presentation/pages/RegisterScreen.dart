@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
@@ -16,8 +17,19 @@ class RegisterScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        actions: [
+          IconButton(
+              onPressed: () {
+                if (context.locale.languageCode == 'en') {
+                  context.setLocale(const Locale('ar'));
+                } else {
+                  context.setLocale(const Locale('en'));
+                }
+              },
+              icon: Icon(Icons.language))
+        ],
         title: Text(''),
-        toolbarHeight: 0,
+        toolbarHeight: 30,
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -46,14 +58,14 @@ class RegisterScreen extends StatelessWidget {
               ),
               Buttonconsumer(),
               SizedBox(
-                height: 15.h,
+                height: 1.h,
               ),
               TextButton(
                   onPressed: () {
                     context.go(ConstantRouter.loginScreen);
                   },
                   child: Text(
-                    'Login',
+                    'Login'.tr(),
                     style: TextStyle(color: Colors.blue, fontSize: 14.sp),
                   ))
             ],

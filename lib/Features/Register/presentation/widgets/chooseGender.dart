@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,7 +21,7 @@ class ChooseGender extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 10.w),
               child: DropdownButtonFormField(
                   decoration: InputDecoration(
-                      labelText: 'Select Gender',
+                      labelText: 'Select Gender'.tr(),
                       enabledBorder: OutlineInputBorder(
                           borderSide:
                               BorderSide(color: Colors.black, width: 2.w),
@@ -30,8 +31,10 @@ class ChooseGender extends StatelessWidget {
                               BorderSide(color: Colors.black, width: 2.w),
                           borderRadius: BorderRadius.circular(5.r))),
                   items: [
-                    DropdownMenuItem(value: "Male", child: Text('Male')),
-                    DropdownMenuItem(value: "Female", child: Text('Female'))
+                    DropdownMenuItem(
+                        value: "Male".tr(), child: Text('Male'.tr())),
+                    DropdownMenuItem(
+                        value: "Female".tr(), child: Text('Female'.tr()))
                   ],
                   onChanged: (value) {
                     cubit.setGender(value);

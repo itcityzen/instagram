@@ -7,5 +7,19 @@
   "Email": "البريد الالكتروني",
   "Enter your email": "ادخل البريد الالكتروني",
   "Enter your password": "ادخل كلمة المرور",
-  "Enter your username": "ادخل اسم المستخدم"
+  "Enter your username": "ادخل اسم المستخدم",
+  "Phone" : "رقم الهاتف",
+  "Select Gender" : "اختر النوع",
+  "Male" : "ذكر",
+  "Female" : "انثي",
+  "Register" : "تسجيل حساب جديد",
+  "Login" : "تسجيل دخول",
+  "Posts" : "المنشورات",
+  "Followers" : "المتابعين",
+  "Following" : "المتابعة",
+  "Edit Profile" : "تعديل الملف الشخصي",
+  "Logout" : "تسجيل الخروج",
+  "Bio" : "السيرة الذاتية",
+  "Save" : "حفظ",
+  "Website" : "الموقع الالكتروني"
 }

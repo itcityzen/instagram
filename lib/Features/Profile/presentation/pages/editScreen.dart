@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -19,9 +20,17 @@ class EditScreen extends StatelessWidget {
     final profileCubit = context.read<ProfileCubit>();
 
     return Scaffold(
-
         appBar: AppBar(
           actions: [
+            IconButton(
+                onPressed: () {
+                  if (context.locale.languageCode == 'en') {
+                    context.setLocale(const Locale('ar'));
+                  } else {
+                    context.setLocale(const Locale('en'));
+                  }
+                },
+                icon: Icon(Icons.language)),
             BlocBuilder<ThemeCubit, ThemeState>(
               builder: (context, state) {
                 if (state is ThemeisLight) {
@@ -61,32 +70,32 @@ class EditScreen extends StatelessWidget {
                   Icons.person,
                   color: Colors.blue,
                 ),
-                hintText: 'username',
-                labelText: 'Username',
+                hintText: 'Username'.tr(),
+                labelText: 'Username'.tr(),
                 controller: profileCubit.usernameController),
             SizedBox(
               height: 20.h,
             ),
             CustomFormTextField(
                 prefixIcon: Icon(Icons.alternate_email, color: Colors.blue),
-                hintText: 'Website',
-                labelText: 'Website',
+                hintText: 'Website'.tr(),
+                labelText: 'Website'.tr(),
                 controller: profileCubit.websiteController),
             SizedBox(
               height: 20.h,
             ),
             CustomFormTextField(
                 prefixIcon: Icon(Icons.message, color: Colors.blue),
-                hintText: 'Bio',
-                labelText: 'Bio',
+                hintText: 'Bio'.tr(),
+                labelText: 'Bio'.tr(),
                 controller: profileCubit.bioController),
             SizedBox(
               height: 20.h,
             ),
             CustomFormTextField(
                 prefixIcon: Icon(Icons.phone, color: Colors.blue),
-                hintText: 'phone',
-                labelText: 'Phone',
+                hintText: 'Phone'.tr(),
+                labelText: 'Phone'.tr(),
                 controller: profileCubit.phoneController),
             SizedBox(
               height: 20.h,
@@ -104,7 +113,7 @@ class EditScreen extends StatelessWidget {
                   Navigator.pop(context);
                 },
                 child: Text(
-                  'Save',
+                  'Save'.tr(),
                   style: TextStyle(
                       fontWeight: FontWeight.bold, color: Colors.white),
                 )),
@@ -124,7 +133,7 @@ class EditScreen extends StatelessWidget {
                   context.go(ConstantRouter.registerScreen);
                 },
                 child: Text(
-                  'Logout',
+                  'Logout'.tr(),
                   style: TextStyle(
                       fontWeight: FontWeight.bold, color: Colors.white),
                 ))
