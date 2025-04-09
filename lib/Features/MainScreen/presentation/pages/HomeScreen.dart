@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:instagram2/Core/DependcyInjection/DependcyInjection.dart';
+import 'package:instagram2/Core/Routes/ConstantRouter.dart';
+import 'package:instagram2/Features/Chat/presentation/manager/rooms_cubit.dart';
 import 'package:instagram2/Features/MainScreen/presentation/manager/home_cubit.dart';
 import 'package:instagram2/Features/MainScreen/presentation/widgets/HomePostsView.dart';
 import 'package:instagram2/Features/Post/data/models/PostModel.dart';
@@ -39,7 +42,9 @@ class HomeScreen extends StatelessWidget {
               width: 1.w,
             ),
             IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  context.push(ConstantRouter.RoomsScreen);
+                },
                 icon: Icon(Icons.send, size: 35, color: Colors.black))
           ],
         ),

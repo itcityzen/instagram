@@ -3,9 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get_it/get_it.dart';
 import 'package:instagram2/Core/Theme/theme_cubit.dart';
-import 'package:instagram2/Features/Chat/data/repositories/ChatRepository.dart';
-import 'package:instagram2/Features/Chat/data/repositories/ChatRepositoryImplementation.dart';
-import 'package:instagram2/Features/Chat/presentation/manager/rooms_cubit.dart';
 import 'package:instagram2/Features/Login/data/repositories/LoginRepository.dart';
 import 'package:instagram2/Features/Login/data/repositories/LoginRepositoryImplementation.dart';
 import 'package:instagram2/Features/Login/presentation/manager/login_cubit.dart';
@@ -111,11 +108,4 @@ void setup() {
   //Follow Cubit
   getIt.registerFactory<FollowCubit>(
       () => FollowCubit(getIt<ProfileRepository>()));
-
-  // Rooms Repository
-  getIt.registerLazySingleton<ChatRepository>(
-      () => ChatRepositoryImplementation(getIt<FirebaseFirestore>()));
-
-  //Rooms Cubit
-  getIt.registerFactory<RoomsCubit>(() => RoomsCubit(getIt<ChatRepository>()));
 }

@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:instagram2/Core/SharedPreferences/CachHelper.dart';
 import 'package:instagram2/Core/Theme/theme_cubit.dart';
+import 'package:instagram2/Features/Chat/presentation/manager/rooms_cubit.dart';
 import 'package:instagram2/Features/Login/presentation/manager/login_cubit.dart';
 import 'package:instagram2/Features/MainScreen/presentation/manager/home_cubit.dart';
 import 'package:instagram2/Features/Profile/presentation/manager/follow_cubit.dart';
@@ -42,6 +43,8 @@ void main() async {
           BlocProvider(create: (context) => getIt<AnotherUserCubit>()),
           BlocProvider(create: (context) => getIt<ThemeCubit>()),
           BlocProvider(create: (context) => getIt<FollowCubit>()),
+          BlocProvider(create: (context) => getIt<RoomsCubit>()),
+
         ],
         child: MyApp(),
       ),
