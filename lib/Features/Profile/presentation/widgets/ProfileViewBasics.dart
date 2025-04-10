@@ -224,6 +224,7 @@ class _ProfileviewbasicsState extends State<Profileviewbasics> {
                               context
                                   .push(ConstantRouter.MessagesScreen, extra: {
                                 "roomId": roomId,
+                                    // add null op  like anotherUserId: user.uid!
                                 "anotherUserId": widget.user.uid,
                                 "anotherUserName": widget.user.username
                               });
