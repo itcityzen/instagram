@@ -17,6 +17,7 @@ class _RoomsScreenState extends State<RoomsScreen> {
   @override
   void initState() {
     super.initState();
+    //     BlocProvider.of<RoomsCubit>(context).getAllRooms(); if it registerfactory 
     context.read<RoomsCubit>().getAllRooms();
   }
 
@@ -40,6 +41,7 @@ class _RoomsScreenState extends State<RoomsScreen> {
                 return ListTile(
                   title:
                       Text(state.chatRooms[index].anotherUserData!.username!),
+                  // null check  Text(room.lastMessage ?? ''), 
                   subtitle: Text(state.chatRooms[index].lastMessage!),
                   leading: CircleAvatar(
                     radius: 30.r,
