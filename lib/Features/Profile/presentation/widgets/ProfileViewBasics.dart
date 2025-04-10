@@ -217,11 +217,16 @@ class _ProfileviewbasicsState extends State<Profileviewbasics> {
                                 Border.all(color: Colors.black87, width: 2.w)),
                         child: TextButton(
                           onPressed: () async {
-                            final roomId = context
+                            final roomId = await context
                                 .read<RoomsCubit>()
                                 .createRoom(widget.user.uid!);
                             if (roomId != null) {
-                              context.push(ConstantRouter.mainScreen);
+                              context
+                                  .push(ConstantRouter.MessagesScreen, extra: {
+                                "roomId": roomId,
+                                "anotherUserId": widget.user.uid,
+                                "anotherUserName": widget.user.username
+                              });
                             } else {
                               ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(content: Text('Error'.tr())));

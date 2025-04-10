@@ -45,7 +45,7 @@ class HomeScreen extends StatelessWidget {
                 onPressed: () {
                   context.push(ConstantRouter.RoomsScreen);
                 },
-                icon: Icon(Icons.send, size: 35, color: Colors.black))
+                icon: Icon(Icons.message_outlined, size: 35, color: Colors.black))
           ],
         ),
         body: BlocProvider(

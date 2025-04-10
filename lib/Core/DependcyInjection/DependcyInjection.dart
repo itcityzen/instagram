@@ -5,6 +5,7 @@ import 'package:get_it/get_it.dart';
 import 'package:instagram2/Core/Theme/theme_cubit.dart';
 import 'package:instagram2/Features/Chat/data/repositories/ChatRepository.dart';
 import 'package:instagram2/Features/Chat/data/repositories/ChatRepositoryImplementation.dart';
+import 'package:instagram2/Features/Chat/presentation/manager/messages_cubit.dart';
 import 'package:instagram2/Features/Chat/presentation/manager/rooms_cubit.dart';
 import 'package:instagram2/Features/Login/data/repositories/LoginRepository.dart';
 import 'package:instagram2/Features/Login/data/repositories/LoginRepositoryImplementation.dart';
@@ -118,4 +119,8 @@ void setup() {
 
   //Rooms Cubit
   getIt.registerFactory<RoomsCubit>(() => RoomsCubit(getIt<ChatRepository>()));
+
+  //Messages Cubit
+  getIt.registerFactory<MessagesCubit>(
+      () => MessagesCubit(getIt<ChatRepository>()));
 }

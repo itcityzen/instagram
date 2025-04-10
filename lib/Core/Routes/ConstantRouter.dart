@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:go_router/go_router.dart';
+import 'package:instagram2/Features/Chat/presentation/pages/MessagesScreen.dart';
 import 'package:instagram2/Features/Chat/presentation/pages/RoomsScreen.dart';
 import 'package:instagram2/Features/Post/presentation/widgets/AddDescriptionScreen.dart';
 import 'package:instagram2/Features/Profile/presentation/pages/FollowScreen.dart';
@@ -24,6 +25,7 @@ class ConstantRouter {
   static const String AnotherUserProfile = "/AnotherUserProfile";
   static const String FollowScreen = "/FollowScreen";
   static const String RoomsScreen = "/RoomsScreen";
+  static const String MessagesScreen = "/MessagesScreen";
 }
 
 class AppRouter {
@@ -82,6 +84,15 @@ class AppRouter {
             path: ConstantRouter.RoomsScreen,
             builder: (context, state) {
               return RoomsScreen();
+            }),
+        GoRoute(
+            path: ConstantRouter.MessagesScreen,
+            builder: (context, state) {
+              Map<String, dynamic> data = state.extra as Map<String, dynamic>;
+              return MessagesScreen(
+                  roomId: data['roomId'],
+                  anotherUserId: data['anotherUserId'],
+                  Username: data['Username']);
             }),
       ]);
 }

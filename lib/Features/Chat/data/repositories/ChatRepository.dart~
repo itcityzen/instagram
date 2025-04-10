@@ -1,6 +1,0 @@
-import '../models/Room Model.dart';
-
-abstract class ChatRepository {
-  Future<String> CreateNewRoom(String anotherID);
-  Stream<List<ChatRoomModel>> getAllRooms(String currentUserID);
-}

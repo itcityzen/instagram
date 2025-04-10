@@ -18,7 +18,7 @@ class RoomsCubit extends Cubit<RoomsState> {
   Future<String?> createRoom(String anotherUserID) async {
     emit(CreateRoomLoading());
     try {
-      final roomID = await chatRepository.CreateNewRoom(anotherUserID);
+      final roomID = chatRepository.CreateNewRoom(anotherUserID);
       emit(CreateRoomSuccess());
       return roomID;
     } catch (e) {
@@ -38,7 +38,7 @@ class RoomsCubit extends Cubit<RoomsState> {
       for (var room in Rooms) {
         final anotherID = room.members!.firstWhere((id) => id != currentUserID);
         final anotherUserData = await chatRepository.getUserData(anotherID);
-        room.anotherUserData = anotherUserData as UserModel? ;
+        room.anotherUserData = anotherUserData as UserModel?;
         updatedRooms.add(room);
       }
       emit(getRoomLoadedSuccess(updatedRooms));

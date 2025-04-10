@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+import 'package:instagram2/Core/Routes/ConstantRouter.dart';
 import 'package:instagram2/Features/Chat/presentation/manager/rooms_cubit.dart';
 
 class RoomsScreen extends StatefulWidget {
@@ -48,7 +50,15 @@ class _RoomsScreenState extends State<RoomsScreen> {
                     state.chatRooms[index].createdAt!.toDate().toString(),
                     style: TextStyle(color: Colors.grey),
                   ),
-                  onTap: () {},
+                  onTap: () {
+                    context.push(ConstantRouter.MessagesScreen, extra: {
+                      "roomId": state.chatRooms[index].roomid,
+                      "anotherUserId":
+                          state.chatRooms[index].anotherUserData!.uid,
+                      "anotherUserName":
+                          state.chatRooms[index].anotherUserData!.username
+                    });
+                  },
                 );
               });
         }

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:instagram2/Core/DependcyInjection/DependcyInjection.dart';
+import 'package:instagram2/Features/Chat/data/models/Messages%20Model.dart';
 import 'package:instagram2/Features/Chat/data/models/Room%20Model.dart';
 import 'package:instagram2/Features/Chat/data/repositories/ChatRepository.dart';
 import 'package:instagram2/Features/Register/data/models/UserModel.dart';
@@ -21,7 +22,7 @@ class ChatRepositoryImplementation extends ChatRepository {
       // checking if room is already exists
       final existingRoom = await firestore
           .collection("Rooms")
-          .where("Members", isEqualTo: sortedMembers)
+          .where("members", isEqualTo: sortedMembers)
           .get();
       if (existingRoom.docs.isNotEmpty) {
         return existingRoom.docs.first.id;
@@ -80,5 +81,42 @@ class ChatRepositoryImplementation extends ChatRepository {
     } catch (e) {
       throw Exception("Error to get User ${e.toString()}");
     }
+  }
+
+  @override
+  Future<void> SendingMessages({
+    required String roomId,
+    required MessageModel message,
+  }) async {
+    try {
+      final messageDoc = firestore
+          .collection("Rooms")
+          .doc(roomId)
+          .collection("Messages")
+          .doc(message.messageId)
+          .set(message.toFirestore());
+
+      // Update last message + time in the room doc
+      await firestore.collection("Rooms").doc(roomId).update({
+        'lastMessage': message.text,
+        'createdAt': Timestamp.now(),
+        'totalUnReadMessages': FieldValue.increment(1),
+      });
+    } catch (e) {
+      print("Error sending message: $e");
+    }
+  }
+
+  @override
+  Stream<List<MessageModel>> getMessagesForRoom(String roomId) {
+    final messageCollection = firestore
+        .collection("Rooms")
+        .doc(roomId)
+        .collection("Messages")
+        .orderBy("createdAt", descending: true);
+
+    return messageCollection.snapshots().map((snapshot) => snapshot.docs
+        .map((doc) => MessageModel.fromFirestore(doc.data()))
+        .toList());
   }
 }
