@@ -88,10 +88,11 @@ class AppRouter {
         GoRoute(
             path: ConstantRouter.MessagesScreen,
             builder: (context, state) {
+              Map<String, dynamic> data = state.extra as Map<String, dynamic>;
               return MessagesScreen(
-                  roomId: ,
-                  anotherUserId: ,
-                  Username: );
+                  roomId: data['roomId'],
+                  anotherUserId: data['anotherUserId'],
+                  Username: data['Username']);
             }),
       ]);
 }

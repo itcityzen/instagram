@@ -1,6 +1,6 @@
 import '../../../Register/data/models/UserModel.dart';
 import '../models/Messages Model.dart';
-import '../models/Room Model.dart';
+import '../models/RoomModel.dart';
 
 abstract class ChatRepository {
   Future<String> CreateNewRoom(String anotherID);

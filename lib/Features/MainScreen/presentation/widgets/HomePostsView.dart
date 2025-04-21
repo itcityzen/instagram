@@ -34,7 +34,9 @@ class Homepostsview extends StatelessWidget {
                 onDoubleTap: () {
                   context.read<PostsCubit>().Tablike(posts.postID!, !isLiked);
                 },
-                child: Container(height:40.h ,width: 32.w,
+                child: Container(
+                  height: 40.h,
+                  width: 32.w,
                   child: ClipOval(
                     child: Image.network(
                       fit: BoxFit.fill,
@@ -133,9 +135,11 @@ class Homepostsview extends StatelessWidget {
                       TextStyle(fontWeight: FontWeight.w900, fontSize: 13.sp),
                 ),
                 SizedBox(width: 10.w),
-                Text(
-                  posts.description ?? "no description",
-                  style: TextStyle(fontWeight: FontWeight.w600),
+                Expanded(
+                  child: Text(
+                    posts.description ?? "no description",
+                    style: TextStyle(fontWeight: FontWeight.w600),
+                  ),
                 ),
               ],
             ),

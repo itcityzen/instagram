@@ -1,11 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:instagram2/Core/DependcyInjection/DependcyInjection.dart';
 import 'package:instagram2/Features/Chat/data/models/Messages%20Model.dart';
-import 'package:instagram2/Features/Chat/data/models/Room%20Model.dart';
 import 'package:instagram2/Features/Chat/data/repositories/ChatRepository.dart';
 import 'package:instagram2/Features/Register/data/models/UserModel.dart';
 import 'package:uuid/uuid.dart';
+
+import '../models/RoomModel.dart';
 
 class ChatRepositoryImplementation extends ChatRepository {
   FirebaseFirestore firestore;
@@ -52,12 +54,15 @@ class ChatRepositoryImplementation extends ChatRepository {
             descending: true,
           );
       // divided all each room into a snapshot
+      print("chat rooms collection");
       return chatRoomsCollection.snapshots().map((snapshot) {
 // convert documents into lists
         final allRooms = snapshot.docs
             .map((doc) => ChatRoomModel.fromFirestore(doc.data()))
             .toList();
         // get all my rooms only
+        print("ALl Rooms ${allRooms.length}");
+
         return allRooms
             .where((room) => room.members!.contains(currentUserID))
             .toList();

@@ -10,6 +10,7 @@ import 'package:instagram2/Features/Chat/presentation/manager/rooms_cubit.dart';
 import 'package:instagram2/Features/Profile/presentation/manager/follow_cubit.dart';
 import 'package:instagram2/Features/Search/presentation/manager/anothe_user_cubit.dart';
 
+import '../../../Chat/presentation/pages/MessagesScreen.dart';
 import '../../../Register/data/models/UserModel.dart';
 
 class Profileviewbasics extends StatefulWidget {
@@ -221,12 +222,15 @@ class _ProfileviewbasicsState extends State<Profileviewbasics> {
                                 .read<RoomsCubit>()
                                 .createRoom(widget.user.uid!);
                             if (roomId != null) {
-                              context
-                                  .push(ConstantRouter.MessagesScreen, extra: {
-                                "roomId": roomId,
-                                "anotherUserId": widget.user.uid,
-                                "anotherUserName": widget.user.username
-                              });
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => MessagesScreen(
+                                            roomId: roomId,
+                                            anotherUserId: widget.user.uid!,
+                                            Username: widget.user.username!,
+                                            ImageUrl: widget.user.profileUrl!,
+                                          )));
                             } else {
                               ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(content: Text('Error'.tr())));

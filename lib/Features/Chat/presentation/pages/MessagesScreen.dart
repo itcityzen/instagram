@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:instagram2/Features/Chat/data/repositories/ChatRepository.dart';
 import 'package:instagram2/Features/Chat/presentation/manager/messages_cubit.dart';
 
@@ -11,11 +12,13 @@ class MessagesScreen extends StatefulWidget {
   final String roomId;
   final String anotherUserId;
   final String Username;
+  final String ImageUrl;
   const MessagesScreen(
       {super.key,
       required this.roomId,
       required this.anotherUserId,
-      required this.Username});
+      required this.Username,
+      required this.ImageUrl});
 
   @override
   State<MessagesScreen> createState() => _MessagesScreenState();
@@ -33,6 +36,17 @@ class _MessagesScreenState extends State<MessagesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        actions: [
+          CircleAvatar(
+            backgroundImage: NetworkImage(
+              widget.ImageUrl,
+            ),
+            radius: 30.r,
+          )
+        ],
+        title: Text(widget.Username),
+      ),
       body: Column(
         children: [
           Expanded(
@@ -104,6 +118,7 @@ class _MessagesScreenState extends State<MessagesScreen> {
                     context.read<MessagesCubit>().SendMessage(
                         roomId: widget.roomId,
                         anotherUserId: widget.anotherUserId);
+                    context.read<MessagesCubit>().textEditingController.clear();
                   },
                 )
               ],

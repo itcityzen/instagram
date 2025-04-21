@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import '../../../register/data/models/UserModel.dart';
+import '../../../Register/data/models/UserModel.dart';
 
 class ChatRoomModel {
   final String? roomid;
@@ -17,7 +17,7 @@ class ChatRoomModel {
     this.totalUnReadMessages,
   });
 
-  UserModel? anotherUserData;
+  late UserModel anotherUserData;
 
   /// Convert to Firestore Map
   Map<String, dynamic> toFirestore() {
